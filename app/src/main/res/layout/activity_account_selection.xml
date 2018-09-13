@@ -6,13 +6,39 @@
     android:layout_height="match_parent"
     tools:context=".AccountSelectionActivity">
 
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="61dp"
+        android:layout_height="49dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="36dp"
+        android:contentDescription="bankicon"
+        app:layout_constraintEnd_toStartOf="@+id/textView6"
+        app:layout_constraintHorizontal_bias="0.954"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/bank_icon" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="168dp"
+        android:layout_height="54dp"
+        android:layout_marginEnd="124dp"
+        android:layout_marginTop="36dp"
+        android:text="ABC Bank"
+        android:textSize="36sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="96dp"
+        android:layout_marginTop="176dp"
         android:text="Select Bank Account"
         android:textSize="30sp"
         android:textStyle="bold"
@@ -24,18 +50,76 @@
         android:id="@+id/spinner"
         android:layout_width="239dp"
         android:layout_height="33dp"
+        android:layout_marginTop="52dp"
+        android:spinnerMode="dialog"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="189dp" />
+        app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
     <Button
         android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
         android:text="OK"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="252dp" />
+        app:layout_constraintTop_toBottomOf="@+id/spinner" />
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/bottomNavigationAppBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <android.support.design.widget.TabLayout
+            android:id="@+id/bottomNavigationBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#404040"
+            app:tabIndicatorColor="@android:color/holo_blue_dark"
+            app:tabSelectedTextColor="@android:color/white"
+            app:tabTextAppearance="@style/TextAppearance.AppCompat"
+            app:tabTextColor="@android:color/darker_gray">
+
+            <android.support.design.widget.TabItem
+                android:id="@+id/account_tab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:icon="@drawable/bank_acc_icon"
+                android:text="Accounts" />
+
+            <android.support.design.widget.TabItem
+                android:id="@+id/transfer_tab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:icon="@drawable/dollartransfer"
+                android:text="Transfer" />
+
+            <android.support.design.widget.TabItem
+                android:id="@+id/bill_tab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:icon="@drawable/bill_payment_icon"
+                android:text="Bill" />
+
+            <android.support.design.widget.TabItem
+                android:id="@+id/feedback_tab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:icon="@drawable/feedback_icon"
+                android:text="Feedback" />
+
+            <android.support.design.widget.TabItem
+                android:id="@+id/settings_tab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:icon="@drawable/settings_icon"
+                android:text="Settings" />
+        </android.support.design.widget.TabLayout>
+    </android.support.design.widget.AppBarLayout>
 
 </android.support.constraint.ConstraintLayout>

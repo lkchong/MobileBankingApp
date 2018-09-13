@@ -2,7 +2,10 @@ package com.fyp.mobilebankingapp;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.AsyncTask;
+import android.view.View;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -18,7 +21,7 @@ import java.net.URLEncoder;
 
 public class BackgroundWorker extends AsyncTask<String, Void, String> {
     Context context;
-    AlertDialog alertDialog;
+    AlertDialog.Builder alertDialogBuilder;
     BackgroundWorker (Context context) {
         this.context = context;
     }
@@ -26,7 +29,9 @@ public class BackgroundWorker extends AsyncTask<String, Void, String> {
     @Override
     protected String doInBackground(String... params) {
         String type = params[0];
-        String login_URL = "http://10.0.2.2/login.php";
+        String login_URL = "http://192.168.1.18/login.php";
+        // IP use 10.0.2.2 for testing using emulator
+        String result = "";
 
         if(type.equals("login")) {
             try {
@@ -51,8 +56,9 @@ public class BackgroundWorker extends AsyncTask<String, Void, String> {
 
                 InputStream inputStream = httpURLConnection.getInputStream();
                 BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "iso-8859-1"));
-                String result = "";
+
                 String line;
+                result = "";
 
                 while((line = bufferedReader.readLine()) != null) {
                     result = result + line;
@@ -61,26 +67,33 @@ public class BackgroundWorker extends AsyncTask<String, Void, String> {
                 bufferedReader.close();
                 inputStream.close();
                 httpURLConnection.disconnect();
-                return result;
+                //return result;
             } catch (MalformedURLException e) {
                 e.printStackTrace();
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
-        return null;
+        return result;
     }
 
     @Override
     protected void onPreExecute() {
-        alertDialog = new AlertDialog.Builder(context).create();
-        alertDialog.setTitle("Login Status");
+        alertDialogBuilder = new AlertDialog.Builder(context);
+        alertDialogBuilder.setCancelable(true).setTitle("Login" +
+                " Status");
     }
 
     @Override
     protected void onPostExecute(String result) {
-        alertDialog.setMessage(result);
-        alertDialog.show();
+        if(result.equals("Success"))
+            alertDialogBuilder.setMessage("Login Successful");
+        else
+            alertDialogBuilder.setMessage("Login Unsuccessful");
+
+        //alertDialogBuilder.setMessage(result);
+
+        alertDialogBuilder.create().show();
     }
 
     @Override

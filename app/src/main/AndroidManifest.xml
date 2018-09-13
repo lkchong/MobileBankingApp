@@ -18,9 +18,23 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SettingActivity" />
+        <activity android:name=".SettingActivity">
+            <intent-filter>
+                <action android:name="com.fyp.mobilebankingapp.test" />
+            </intent-filter>
+        </activity>
         <activity android:name=".AccountSelectionActivity" />
-        <activity android:name=".AccountDetailsActivity"></activity>
+        <activity android:name=".AccountDetailsActivity" />
+        <activity android:name=".TransferPageMain" />
+        <activity android:name=".TransferToOwnAcc" />
+        <activity android:name=".TransferToOtherAcc" />
+        <activity android:name=".NewTransferPayee" />
+        <activity android:name=".TransferSummary" />
+        <activity android:name=".BillPayment" />
+        <activity android:name=".NewBillPaymentPayee" />
+        <activity android:name=".BillPaymentSummary" />
+        <activity android:name=".ReportPage" />
+        <activity android:name=".CustomerFeedback" />
     </application>
 
 </manifest>
