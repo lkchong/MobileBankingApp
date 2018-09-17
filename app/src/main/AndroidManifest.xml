@@ -11,48 +11,50 @@
         android:roundIcon="@drawable/app_icon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
         <activity
             android:name=".LoginActivity"
             android:launchMode="singleInstance" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
-
         <activity
             android:name=".AccountDetailsActivity"
             android:launchMode="singleInstance" />
+
         <activity
             android:name=".TransferToOwnAcc"
             android:launchMode="singleInstance" />
+
         <activity
             android:name=".TransferToOtherAcc"
             android:launchMode="singleInstance" />
+
         <activity
             android:name=".NewTransferPayee"
             android:launchMode="singleInstance" />
+
         <activity
             android:name=".TransferSummary"
             android:launchMode="singleInstance" />
+
         <activity
             android:name=".NewBillPaymentPayee"
             android:launchMode="singleInstance" />
+
         <activity
             android:name=".BillPaymentSummary"
             android:launchMode="singleInstance" />
+
         <activity
             android:name=".ReportPage"
             android:launchMode="singleInstance" />
 
         <activity android:name=".MainActivity"
-            android:launchMode="singleInstance">
-
-        </activity>
-
+            android:launchMode="singleInstance" />
 
     </application>
-
 </manifest>
