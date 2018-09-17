@@ -137,7 +137,7 @@ public class BackgroundWorker extends AsyncTask<String, Void, String> {
             loginSuccessToast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
             loginSuccessToast.show();
 
-            Intent intent = new Intent(context, AccountSelectionActivity.class);
+            Intent intent = new Intent(context, MainActivity.class);
             context.startActivity(intent);
         }
         else {

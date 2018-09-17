@@ -6,13 +6,14 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:icon="@drawable/app_icon"
+        android:label="FYP"
+        android:roundIcon="@drawable/app_icon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".LoginActivity"
-            android:launchMode="singleInstance">
+        <activity
+            android:name=".LoginActivity"
+            android:launchMode="singleInstance" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -20,52 +21,60 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".SettingActivity"
+
+        <activity
+            android:name=".SettingActivity"
             android:launchMode="singleInstance">
             <intent-filter>
                 <action android:name="com.fyp.mobilebankingapp.setting" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".AccountSelectionActivity"
+        <activity
+            android:name=".AccountSelectionActivity"
             android:launchMode="singleInstance">
             <intent-filter>
                 <action android:name="com.fyp.mobilebankingapp.accountselection" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".AccountDetailsActivity"
+            android:launchMode="singleInstance" />
+        <activity
+            android:name=".TransferPageMain"
+            android:launchMode="singleInstance" />
+        <activity
+            android:name=".TransferToOwnAcc"
+            android:launchMode="singleInstance" />
+        <activity
+            android:name=".TransferToOtherAcc"
+            android:launchMode="singleInstance" />
+        <activity
+            android:name=".NewTransferPayee"
+            android:launchMode="singleInstance" />
+        <activity
+            android:name=".TransferSummary"
+            android:launchMode="singleInstance" />
+        <activity
+            android:name=".BillPayment"
+            android:launchMode="singleInstance" />
+        <activity
+            android:name=".NewBillPaymentPayee"
+            android:launchMode="singleInstance" />
+        <activity
+            android:name=".BillPaymentSummary"
+            android:launchMode="singleInstance" />
+        <activity
+            android:name=".ReportPage"
+            android:launchMode="singleInstance" />
+        <activity
+            android:name=".CustomerFeedback"
+            android:launchMode="singleInstance" />
 
-        <activity android:name=".AccountDetailsActivity"
-            android:launchMode="singleInstance"/>
+        <activity android:name=".MainActivity"
+            android:launchMode="singleInstance">
 
-        <activity android:name=".TransferPageMain"
-            android:launchMode="singleInstance"/>
+        </activity>
 
-        <activity android:name=".TransferToOwnAcc"
-            android:launchMode="singleInstance"/>
-
-        <activity android:name=".TransferToOtherAcc"
-            android:launchMode="singleInstance"/>
-
-        <activity android:name=".NewTransferPayee"
-            android:launchMode="singleInstance"/>
-
-        <activity android:name=".TransferSummary"
-            android:launchMode="singleInstance"/>
-
-        <activity android:name=".BillPayment"
-            android:launchMode="singleInstance"/>
-
-        <activity android:name=".NewBillPaymentPayee"
-            android:launchMode="singleInstance"/>
-
-        <activity android:name=".BillPaymentSummary"
-            android:launchMode="singleInstance"/>
-
-        <activity android:name=".ReportPage"
-            android:launchMode="singleInstance"/>
-
-        <activity android:name=".CustomerFeedback"
-            android:launchMode="singleInstance"/>
 
     </application>
 
