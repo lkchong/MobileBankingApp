@@ -23,24 +23,7 @@
 
 
         <activity
-            android:name=".SettingActivity"
-            android:launchMode="singleInstance">
-            <intent-filter>
-                <action android:name="com.fyp.mobilebankingapp.setting" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name=".AccountSelectionActivity"
-            android:launchMode="singleInstance">
-            <intent-filter>
-                <action android:name="com.fyp.mobilebankingapp.accountselection" />
-            </intent-filter>
-        </activity>
-        <activity
             android:name=".AccountDetailsActivity"
-            android:launchMode="singleInstance" />
-        <activity
-            android:name=".TransferPageMain"
             android:launchMode="singleInstance" />
         <activity
             android:name=".TransferToOwnAcc"
@@ -55,9 +38,6 @@
             android:name=".TransferSummary"
             android:launchMode="singleInstance" />
         <activity
-            android:name=".BillPayment"
-            android:launchMode="singleInstance" />
-        <activity
             android:name=".NewBillPaymentPayee"
             android:launchMode="singleInstance" />
         <activity
@@ -65,9 +45,6 @@
             android:launchMode="singleInstance" />
         <activity
             android:name=".ReportPage"
-            android:launchMode="singleInstance" />
-        <activity
-            android:name=".CustomerFeedback"
             android:launchMode="singleInstance" />
 
         <activity android:name=".MainActivity"

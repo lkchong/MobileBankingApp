@@ -24,8 +24,11 @@ public class MainActivity extends AppCompatActivity {
         ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
 
         // Adding Fragments to viewPagerAdapter
-        viewPagerAdapter.addFragment(new AccountSelectionFragment(), "Accounts");
-        viewPagerAdapter.addFragment(new TransferMainFragment(), "Transfer");
+        viewPagerAdapter.addFragment(new FragmentAccountSelection(), "Accounts");
+        viewPagerAdapter.addFragment(new FragmentTransferMain(), "Transfer");
+        viewPagerAdapter.addFragment(new FragmentBillPayment(), "Bill");
+        viewPagerAdapter.addFragment(new FragmentFeedback(), "Feedback");
+        viewPagerAdapter.addFragment(new FragmentSettings(), "Settings");
 
         // Configuring viewPager
         viewPager.setAdapter(viewPagerAdapter);
@@ -33,5 +36,9 @@ public class MainActivity extends AppCompatActivity {
 
         tabLayout.getTabAt(0).setIcon(R.drawable.baseline_account_balance_white_24dp);
         tabLayout.getTabAt(1).setIcon(R.drawable.baseline_attach_money_white_24dp);
+        tabLayout.getTabAt(2).setIcon(R.drawable.baseline_list_alt_white_24dp);
+        tabLayout.getTabAt(3).setIcon(R.drawable.baseline_feedback_white_24dp);
+        tabLayout.getTabAt(4).setIcon(R.drawable.baseline_settings_white_24dp);
+
     }
 }

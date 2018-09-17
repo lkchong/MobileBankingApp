@@ -10,17 +10,18 @@ import android.view.View;
 import android.view.ViewGroup;
 
 
-public class AccountSelectionFragment extends Fragment {
+
+public class FragmentTransferMain extends Fragment {
     View view;
-    public AccountSelectionFragment() {
+    public FragmentTransferMain() {
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        view = inflater.inflate(R.layout.fragment_account_selection, container, false);
+        view = inflater.inflate(R.layout.fragment_transfer_main, container, false);
         return view;
     }
+
 }

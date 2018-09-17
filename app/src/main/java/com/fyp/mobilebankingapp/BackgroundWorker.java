@@ -133,7 +133,7 @@ public class BackgroundWorker extends AsyncTask<String, Void, String> {
     @Override
     protected void onPostExecute(String result) {
         if(result.equals("Success")) {
-            Toast loginSuccessToast = Toast.makeText(context, "Login Successful", Toast.LENGTH_LONG);
+            Toast loginSuccessToast = Toast.makeText(context, "Login Successful", Toast.LENGTH_SHORT);
             loginSuccessToast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
             loginSuccessToast.show();
 
