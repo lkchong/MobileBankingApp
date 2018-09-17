@@ -3,7 +3,7 @@
     package="com.fyp.mobilebankingapp">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    "
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -11,6 +11,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
         <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -18,12 +19,22 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+
         <activity android:name=".SettingActivity">
             <intent-filter>
-                <action android:name="com.fyp.mobilebankingapp.test" />
+                <action android:name="com.fyp.mobilebankingapp.setting" />
             </intent-filter>
         </activity>
-        <activity android:name=".AccountSelectionActivity" />
+
+
+        <activity android:name=".AccountSelectionActivity">
+            <intent-filter>
+                <action android:name="com.fyp.mobilebankingapp.accountselection" />
+            </intent-filter>
+        </activity>
+
+
         <activity android:name=".AccountDetailsActivity" />
         <activity android:name=".TransferPageMain" />
         <activity android:name=".TransferToOwnAcc" />
