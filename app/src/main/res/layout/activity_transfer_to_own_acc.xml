@@ -215,35 +215,35 @@
                 android:id="@+id/account_tab"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:icon="@drawable/bank_acc_icon"
+                android:icon="@drawable/baseline_account_balance_white_24dp"
                 android:text="Accounts" />
 
             <android.support.design.widget.TabItem
                 android:id="@+id/transfer_tab"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:icon="@drawable/dollartransfer"
+                android:icon="@drawable/baseline_attach_money_white_24dp"
                 android:text="Transfer" />
 
             <android.support.design.widget.TabItem
                 android:id="@+id/bill_tab"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:icon="@drawable/bill_payment_icon"
+                android:icon="@drawable/baseline_list_alt_white_24dp"
                 android:text="Bill" />
 
             <android.support.design.widget.TabItem
                 android:id="@+id/feedback_tab"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:icon="@drawable/feedback_icon"
+                android:icon="@drawable/baseline_feedback_white_24dp"
                 android:text="Feedback" />
 
             <android.support.design.widget.TabItem
                 android:id="@+id/settings_tab"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:icon="@drawable/settings_icon"
+                android:icon="@drawable/baseline_settings_white_24dp"
                 android:text="Settings" />
         </android.support.design.widget.TabLayout>
     </android.support.design.widget.AppBarLayout>

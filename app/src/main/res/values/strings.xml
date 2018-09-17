@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">MobileBankingApp</string>
+    <string name="nav_transfer">Transfer</string>
 </resources>

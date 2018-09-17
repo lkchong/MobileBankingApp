@@ -123,59 +123,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/divider" />
 
-    <android.support.design.widget.AppBarLayout
-        android:id="@+id/bottomNavigationAppBar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
-
-        <android.support.design.widget.TabLayout
-            android:id="@+id/bottomNavigationBar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#404040"
-            app:tabIndicatorColor="@android:color/holo_blue_dark"
-            app:tabSelectedTextColor="@android:color/white"
-            app:tabTextAppearance="@style/TextAppearance.AppCompat"
-            app:tabTextColor="@android:color/darker_gray">
-
-            <android.support.design.widget.TabItem
-                android:id="@+id/account_tab"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:icon="@drawable/bank_acc_icon"
-                android:text="Accounts" />
-
-            <android.support.design.widget.TabItem
-                android:id="@+id/transfer_tab"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:icon="@drawable/dollartransfer"
-                android:text="Transfer" />
-
-            <android.support.design.widget.TabItem
-                android:id="@+id/bill_tab"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:icon="@drawable/bill_payment_icon"
-                android:text="Bill" />
-
-            <android.support.design.widget.TabItem
-                android:id="@+id/feedback_tab"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:icon="@drawable/feedback_icon"
-                android:text="Feedback" />
-
-            <android.support.design.widget.TabItem
-                android:id="@+id/settings_tab"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:icon="@drawable/settings_icon"
-                android:text="Settings" />
-        </android.support.design.widget.TabLayout>
-    </android.support.design.widget.AppBarLayout>
 
 </android.support.constraint.ConstraintLayout>

@@ -32,7 +32,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
 
-    public void onLogin(View view){
+    protected void onLogin(View view){
         String user = username.getText().toString();
         String pass = password.getText().toString();
         String type = "login";
