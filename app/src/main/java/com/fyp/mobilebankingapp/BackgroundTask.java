@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Toast;
@@ -21,19 +22,27 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
 
-public class BackgroundWorker extends AsyncTask<String, Void, String> {
+public class BackgroundTask extends AsyncTask<String, Void, String> {
     Context context;
     AlertDialog.Builder alertDialogBuilder;
-    BackgroundWorker (Context context) {
+
+    BackgroundTask(Context context) {
         this.context = context;
     }
 
+
+
+    String result;
+    String type;
+
     @Override
     protected String doInBackground(String... params) {
-        String type = params[0];
-        String login_URL = "http://10.0.2.2/login.php";
+        type = params[0];
+
+        String login_URL = "http://192.168.1.18/login.php";
         // IP use 10.0.2.2 for testing using emulator
-        String result = "";
+
+        String accountSelectionURL = "http://192.168.1.18/accountselection.php";
 
         if(type.equals("login")) {
             try {
@@ -43,7 +52,7 @@ public class BackgroundWorker extends AsyncTask<String, Void, String> {
                 HttpURLConnection httpURLConnection = (HttpURLConnection)url.openConnection();
                 httpURLConnection.setRequestMethod("POST");
                 httpURLConnection.setDoOutput(true);
-                httpURLConnection.setDoInput(true);
+                //httpURLConnection.setDoInput(true);
 
                 OutputStream outputStream = httpURLConnection.getOutputStream();
                 BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
@@ -77,27 +86,14 @@ public class BackgroundWorker extends AsyncTask<String, Void, String> {
             }
         }
 
-
-        /**if(type.equals("accountSelection")) {
+        // For account selection
+        if(type.equals("accountSelection")) {
             try {
-                String user = params[1];
-                String pass = params[2];
-                URL url = new URL(login_URL);
+
+                URL url = new URL(accountSelectionURL);
                 HttpURLConnection httpURLConnection = (HttpURLConnection)url.openConnection();
-                httpURLConnection.setRequestMethod("POST");
-                httpURLConnection.setDoOutput(true);
+                httpURLConnection.setRequestMethod("GET");
                 httpURLConnection.setDoInput(true);
-
-                OutputStream outputStream = httpURLConnection.getOutputStream();
-                BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
-
-                String post_data = URLEncoder.encode("user","UTF-8")+"="+URLEncoder.encode(user,"UTF-8")+"&"
-                        +URLEncoder.encode("pass","UTF-8")+"="+URLEncoder.encode(pass,"UTF-8");
-
-                bufferedWriter.write(post_data);
-                bufferedWriter.flush();
-                bufferedWriter.close();
-                outputStream.close();
 
                 InputStream inputStream = httpURLConnection.getInputStream();
                 BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "iso-8859-1"));
@@ -112,13 +108,13 @@ public class BackgroundWorker extends AsyncTask<String, Void, String> {
                 bufferedReader.close();
                 inputStream.close();
                 httpURLConnection.disconnect();
-                //return result;
+
             } catch (MalformedURLException e) {
                 e.printStackTrace();
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        }**/
+        }
 
         return result;
     }
@@ -132,20 +128,27 @@ public class BackgroundWorker extends AsyncTask<String, Void, String> {
 
     @Override
     protected void onPostExecute(String result) {
-        if(result.equals("Success")) {
-            Toast loginSuccessToast = Toast.makeText(context, "Login Successful", Toast.LENGTH_SHORT);
+        if(type.equals("login")) {
+            if (result.equals("Success")) {
+                Toast loginSuccessToast = Toast.makeText(context, "Login Successful", Toast.LENGTH_SHORT);
+                loginSuccessToast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+                loginSuccessToast.show();
+
+                Intent intent = new Intent(context, MainActivity.class);
+                context.startActivity(intent);
+            } else {
+                //alertDialogBuilder.setMessage(result);
+                alertDialogBuilder.setMessage("Login Unsuccessful");
+                alertDialogBuilder.create().show();
+            }
+        }
+
+        if(type.equals("accountSelection")) {
+            Toast loginSuccessToast = Toast.makeText(context, "Account Selection", Toast.LENGTH_SHORT);
             loginSuccessToast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
             loginSuccessToast.show();
 
-            Intent intent = new Intent(context, MainActivity.class);
-            context.startActivity(intent);
         }
-        else {
-            alertDialogBuilder.setMessage("Login Unsuccessful");
-            alertDialogBuilder.create().show();
-        }
-
-
 
     }
 
@@ -153,4 +156,5 @@ public class BackgroundWorker extends AsyncTask<String, Void, String> {
     protected void onProgressUpdate(Void... values) {
         super.onProgressUpdate(values);
     }
+
 }

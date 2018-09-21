@@ -9,14 +9,16 @@ import java.util.List;
 
 public class ViewPagerAdapter extends FragmentPagerAdapter{
 
+    // Constants declaration
     private final List<Fragment> FRAGMENT_LIST = new ArrayList<>();
     private final List<String> FRAGMENT_LIST_TITLES = new ArrayList<>();
 
-    // Constructor
+    // Constructor for ViewPagerAdapter Class
     public ViewPagerAdapter(FragmentManager fragmentManager) {
         super(fragmentManager);
     }
 
+    //
     @Override
     public Fragment getItem(int position) {
         return FRAGMENT_LIST.get(position);
@@ -32,8 +34,8 @@ public class ViewPagerAdapter extends FragmentPagerAdapter{
         return FRAGMENT_LIST_TITLES.get(position);
     }
 
-    public void addFragment(Fragment fragment, String Title) {
+    public void addFragment(Fragment fragment, String title) {
         FRAGMENT_LIST.add(fragment);
-        FRAGMENT_LIST_TITLES.add(Title);
+        FRAGMENT_LIST_TITLES.add(title);
     }
 }
