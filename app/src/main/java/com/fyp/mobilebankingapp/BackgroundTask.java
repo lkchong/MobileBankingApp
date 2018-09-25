@@ -30,23 +30,22 @@ public class BackgroundTask extends AsyncTask<String, Void, String> {
         this.context = context;
     }
 
-
-
-    String result;
+    String user;
     String type;
+    String result;
 
     @Override
     protected String doInBackground(String... params) {
         type = params[0];
 
-        String login_URL = "http://192.168.1.18/login.php";
-        // IP use 10.0.2.2 for testing using emulator
-
-        String accountSelectionURL = "http://192.168.1.18/accountselection.php";
+        String host = "http://192.168.1.18/";   // IP use 10.0.2.2 for testing using emulator
+        String login_URL = host + "login.php";
+        String accountSelectionURL = host + "accountselection.php";
+        String accountDetailsURL = host + "accountdetails.php";
 
         if(type.equals("login")) {
             try {
-                String user = params[1];
+                user = params[1];
                 String pass = params[2];
                 URL url = new URL(login_URL);
                 HttpURLConnection httpURLConnection = (HttpURLConnection)url.openConnection();
@@ -89,11 +88,23 @@ public class BackgroundTask extends AsyncTask<String, Void, String> {
         // For account selection
         if(type.equals("accountSelection")) {
             try {
-
+                String custID = params[1];
                 URL url = new URL(accountSelectionURL);
                 HttpURLConnection httpURLConnection = (HttpURLConnection)url.openConnection();
-                httpURLConnection.setRequestMethod("GET");
+                httpURLConnection.setRequestMethod("POST");
+                httpURLConnection.setDoOutput(true);
                 httpURLConnection.setDoInput(true);
+
+                OutputStream outputStream = httpURLConnection.getOutputStream();
+                BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
+
+                String post_data = URLEncoder.encode("custID","UTF-8")+"="+URLEncoder.encode(custID,"UTF-8");
+
+                bufferedWriter.write(post_data);
+                bufferedWriter.flush();
+                bufferedWriter.close();
+                outputStream.close();
+
 
                 InputStream inputStream = httpURLConnection.getInputStream();
                 BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "iso-8859-1"));
@@ -108,7 +119,49 @@ public class BackgroundTask extends AsyncTask<String, Void, String> {
                 bufferedReader.close();
                 inputStream.close();
                 httpURLConnection.disconnect();
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
 
+        // For account details
+        if(type.equals("accountDetails")) {
+            try {
+                String custID = params[1];
+                String accountName = params[2];
+                URL url = new URL(accountDetailsURL);
+                HttpURLConnection httpURLConnection = (HttpURLConnection)url.openConnection();
+                httpURLConnection.setRequestMethod("POST");
+                httpURLConnection.setDoOutput(true);
+                httpURLConnection.setDoInput(true);
+
+                OutputStream outputStream = httpURLConnection.getOutputStream();
+                BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
+
+                String post_data = URLEncoder.encode("custID","UTF-8")+"="+URLEncoder.encode(custID,"UTF-8")
+                                    +"&"+URLEncoder.encode("accountName","UTF-8")+"="+URLEncoder.encode(accountName,"UTF-8");
+
+                bufferedWriter.write(post_data);
+                bufferedWriter.flush();
+                bufferedWriter.close();
+                outputStream.close();
+
+
+                InputStream inputStream = httpURLConnection.getInputStream();
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "iso-8859-1"));
+
+                String line;
+                result = "";
+
+                while((line = bufferedReader.readLine()) != null) {
+                    result = result + line;
+                }
+
+                bufferedReader.close();
+                inputStream.close();
+                httpURLConnection.disconnect();
             } catch (MalformedURLException e) {
                 e.printStackTrace();
             } catch (IOException e) {
@@ -122,33 +175,34 @@ public class BackgroundTask extends AsyncTask<String, Void, String> {
     @Override
     protected void onPreExecute() {
         alertDialogBuilder = new AlertDialog.Builder(context);
-        alertDialogBuilder.setCancelable(true).setTitle("Login" +
-                " Status");
+        alertDialogBuilder.setCancelable(true).setTitle("Login Status");
     }
 
     @Override
     protected void onPostExecute(String result) {
         if(type.equals("login")) {
-            if (result.equals("Success")) {
+            if (result.equals("Failed")) {
+                alertDialogBuilder.setMessage("Login Unsuccessful");
+                alertDialogBuilder.create().show();
+            } else {
                 Toast loginSuccessToast = Toast.makeText(context, "Login Successful", Toast.LENGTH_SHORT);
                 loginSuccessToast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
                 loginSuccessToast.show();
 
                 Intent intent = new Intent(context, MainActivity.class);
+                intent.putExtra("custID", result);
                 context.startActivity(intent);
-            } else {
-                //alertDialogBuilder.setMessage(result);
-                alertDialogBuilder.setMessage("Login Unsuccessful");
-                alertDialogBuilder.create().show();
             }
         }
 
+        /**
         if(type.equals("accountSelection")) {
             Toast loginSuccessToast = Toast.makeText(context, "Account Selection", Toast.LENGTH_SHORT);
             loginSuccessToast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
             loginSuccessToast.show();
 
         }
+         **/
 
     }
 

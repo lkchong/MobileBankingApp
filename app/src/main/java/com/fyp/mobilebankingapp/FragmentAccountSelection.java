@@ -11,6 +11,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -27,6 +28,8 @@ public class FragmentAccountSelection extends Fragment {
         // Variables Declaration
         view = inflater.inflate(R.layout.fragment_account_selection, container, false);
         final Spinner accountSpinner = view.findViewById(R.id.accountDropdown);
+
+        final String custID = getActivity().getIntent().getStringExtra("custID");
 
         new BackgroundTask(getActivity()) {
             @Override
@@ -51,12 +54,13 @@ public class FragmentAccountSelection extends Fragment {
                     e.printStackTrace();
                 }
             }
-        }.execute("accountSelection");
+        }.execute("accountSelection", custID);
 
         Button accountSelected = view.findViewById(R.id.accountSelectedButton);
         accountSelected.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), AccountDetailsActivity.class);
+                intent.putExtra("custID", custID);
                 intent.putExtra("accountName", accountSpinner.getSelectedItem().toString());
                 startActivity(intent);
             }
