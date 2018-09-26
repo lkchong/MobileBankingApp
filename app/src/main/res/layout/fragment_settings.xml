@@ -7,7 +7,7 @@
     tools:context=".FragmentSettings">
 
 
-    <android.support.constraint.ConstraintLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -15,60 +15,50 @@
             android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="84dp"
-            android:layout_marginTop="32dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignStart="@+id/textView2"
+            android:layout_marginTop="97dp"
             android:text="Biometric Login"
             android:textSize="25sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView3" />
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="84dp"
-            android:layout_marginTop="4dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="43dp"
+            android:layout_marginTop="144dp"
             android:text="Biometric Authorization"
             android:textSize="25sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView" />
+            android:textStyle="bold" />
 
         <Switch
             android:id="@+id/biometricLoginSwitch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            app:layout_constraintBaseline_toBaselineOf="@+id/textView"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.6"
-            app:layout_constraintStart_toEndOf="@+id/textView" />
+            android:layout_alignBottom="@+id/textView2"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="49dp" />
 
         <Switch
             android:id="@+id/biometricAuthorizationSwitch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            app:layout_constraintBaseline_toBaselineOf="@+id/textView2"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.058"
-            app:layout_constraintStart_toEndOf="@+id/textView2" />
+            android:layout_alignBottom="@+id/textView"
+            android:layout_alignStart="@+id/biometricLoginSwitch" />
 
         <TextView
             android:id="@+id/textView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="36dp"
             android:text="Settings"
             android:textSize="24sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.501"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:textStyle="bold" />
 
-    </android.support.constraint.ConstraintLayout>
+    </RelativeLayout>
 </FrameLayout>

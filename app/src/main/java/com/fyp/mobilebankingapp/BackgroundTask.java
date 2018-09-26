@@ -38,7 +38,7 @@ public class BackgroundTask extends AsyncTask<String, Void, String> {
     protected String doInBackground(String... params) {
         type = params[0];
 
-        String host = "http://192.168.1.18/";   // IP use 10.0.2.2 for testing using emulator
+        String host = context.getString(R.string.ip_address);    // IP use 10.0.2.2 for testing using emulator
         String login_URL = host + "login.php";
         String accountSelectionURL = host + "accountselection.php";
         String accountDetailsURL = host + "accountdetails.php";
@@ -191,6 +191,7 @@ public class BackgroundTask extends AsyncTask<String, Void, String> {
 
                 Intent intent = new Intent(context, MainActivity.class);
                 intent.putExtra("custID", result);
+                intent.putExtra("username", user);
                 context.startActivity(intent);
             }
         }
