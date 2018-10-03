@@ -1,20 +1,16 @@
 package com.fyp.mobilebankingapp;
 
 import android.content.Intent;
-import android.support.design.widget.TabLayout;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.widget.ArrayAdapter;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class AccountDetailsActivity extends AppCompatActivity {
 

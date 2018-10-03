@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".FragmentSettings">
 
 
@@ -35,7 +34,7 @@
             android:textStyle="bold" />
 
         <Switch
-            android:id="@+id/biometricLoginSwitch"
+            android:id="@+id/bioAuthSwitch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/textView2"
@@ -43,11 +42,11 @@
             android:layout_marginEnd="49dp" />
 
         <Switch
-            android:id="@+id/biometricAuthorizationSwitch"
+            android:id="@+id/bioLoginSwitch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/textView"
-            android:layout_alignStart="@+id/biometricLoginSwitch" />
+            android:layout_alignStart="@+id/bioAuthSwitch"
+            android:layout_alignBottom="@+id/textView" />
 
         <TextView
             android:id="@+id/textView3"

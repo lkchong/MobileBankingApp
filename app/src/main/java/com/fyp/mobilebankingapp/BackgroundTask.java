@@ -2,12 +2,9 @@ package com.fyp.mobilebankingapp;
 
 import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
-import android.os.Bundle;
 import android.view.Gravity;
-import android.view.View;
 import android.widget.Toast;
 
 import java.io.BufferedReader;
@@ -51,7 +48,6 @@ public class BackgroundTask extends AsyncTask<String, Void, String> {
                 HttpURLConnection httpURLConnection = (HttpURLConnection)url.openConnection();
                 httpURLConnection.setRequestMethod("POST");
                 httpURLConnection.setDoOutput(true);
-                //httpURLConnection.setDoInput(true);
 
                 OutputStream outputStream = httpURLConnection.getOutputStream();
                 BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
@@ -180,7 +176,6 @@ public class BackgroundTask extends AsyncTask<String, Void, String> {
 
     @Override
     protected void onPostExecute(String result) {
-        if(type.equals("login")) {
             if (result.equals("Failed")) {
                 alertDialogBuilder.setMessage("Login Unsuccessful");
                 alertDialogBuilder.create().show();
@@ -194,17 +189,6 @@ public class BackgroundTask extends AsyncTask<String, Void, String> {
                 intent.putExtra("username", user);
                 context.startActivity(intent);
             }
-        }
-
-        /**
-        if(type.equals("accountSelection")) {
-            Toast loginSuccessToast = Toast.makeText(context, "Account Selection", Toast.LENGTH_SHORT);
-            loginSuccessToast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
-            loginSuccessToast.show();
-
-        }
-         **/
-
     }
 
     @Override

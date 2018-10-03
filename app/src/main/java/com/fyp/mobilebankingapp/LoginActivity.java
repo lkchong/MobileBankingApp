@@ -1,37 +1,21 @@
 package com.fyp.mobilebankingapp;
 
 import android.Manifest;
-import android.app.AlertDialog;
 import android.app.KeyguardManager;
-import android.content.Context;
-import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.hardware.fingerprint.FingerprintManager;
-import android.os.AsyncTask;
+import android.os.Bundle;
 import android.os.CancellationSignal;
 import android.security.keystore.KeyGenParameterSpec;
 import android.security.keystore.KeyProperties;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLEncoder;
 import java.security.KeyStore;
 
 import javax.crypto.Cipher;
@@ -39,21 +23,52 @@ import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
 
 public class LoginActivity extends AppCompatActivity {
-    EditText username;
-    EditText password;
+
+    private EditText usernameEditText;
+    private EditText passwordEditText;
+
+    private SharedPreferences sharedPreferences;
+    private String custID;
+    private String username;
+    private Button loginBtn;
 
     private String KEY_NAME = "fingerprintkey";
+    private FingerprintDialog fingerprintDialog;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        username = (EditText)findViewById(R.id.username);
-        password = (EditText)findViewById(R.id.password);
+
+        usernameEditText = (EditText)findViewById(R.id.username);
+        passwordEditText = (EditText)findViewById(R.id.password);
 
 
-        FingerprintDialog fingerprintDialog = new FingerprintDialog();
+        sharedPreferences = getSharedPreferences("loginPrefs", MODE_PRIVATE);
+        if (sharedPreferences.getBoolean("bioLoginSwitch", false)) {
+            custID = sharedPreferences.getString("CUSTID", null);
+            username = sharedPreferences.getString("USERNAME", null);
+
+            usernameEditText.setVisibility(View.INVISIBLE);
+            passwordEditText.setVisibility(View.INVISIBLE);
+
+            loginBtn = (Button) findViewById(R.id.loginButton);
+            loginBtn.setVisibility(View.INVISIBLE);
+
+            biometricLogin();
+        }
+    }
+
+
+    protected void biometricLogin() {
+        fingerprintDialog = new FingerprintDialog();
         fingerprintDialog.setCancelable(false);
+
+        Bundle dialogBundle = new Bundle();
+        dialogBundle.putString("username", username);
+
+        fingerprintDialog.setArguments(dialogBundle);
         fingerprintDialog.show(getSupportFragmentManager(), "fingerprint dialog");
 
 
@@ -136,25 +151,24 @@ public class LoginActivity extends AppCompatActivity {
 
         CancellationSignal cancellationSignal = new CancellationSignal();
         fingerprintManager.authenticate(cryptoObject, cancellationSignal, 0,
-                new AuthenticationHandler(this, fingerprintDialog), null);
-
+                new AuthenticationHandler(this, fingerprintDialog, custID), null);
     }
 
-/**
+
     protected void onLogin(View view){
-        String user = username.getText().toString();
-        String pass = password.getText().toString();
+        String user = usernameEditText.getText().toString();
+        String pass = passwordEditText.getText().toString();
         String type = "login";
 
         BackgroundTask backgroundTask = new BackgroundTask(this);
         backgroundTask.execute(type, user, pass);
 
-         // Testing for asynctask inner class
-        BackgroundTask2 backgroundTask = new BackgroundTask2();
-        backgroundTask.execute(user, pass);
-
+        //Testing for asynctask inner class//
+        //BackgroundTask2 backgroundTask = new BackgroundTask2();
+        //backgroundTask.execute(user, pass);
     }
 
+    /**
     public class BackgroundTask2 extends AsyncTask<String, Void, String> {
         AlertDialog.Builder alertDialogBuilder;
         String user;
@@ -224,9 +238,9 @@ public class LoginActivity extends AppCompatActivity {
 
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                     intent.putExtra("custID", result);
-                    intent.putExtra("username", user);
+                    intent.putExtra("usernameEditText", user);
                     LoginActivity.this.startActivity(intent);
                 }
         }
-    }**/
+        **/
 }

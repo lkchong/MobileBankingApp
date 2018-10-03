@@ -47,22 +47,22 @@
             app:layout_constraintTop_toBottomOf="@+id/divider19" />
 
         <Button
-            android:id="@+id/button14"
-            android:layout_width="240dp"
+            android:id="@+id/cancelBtn"
+            android:layout_width="190dp"
             android:layout_height="80dp"
-            android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:background="@android:color/holo_blue_light"
             android:text="Cancel"
             android:textColor="@android:color/white"
             android:textSize="18sp"
-            app:layout_constraintBaseline_toBaselineOf="@+id/button15"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/button15" />
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toEndOf="@+id/submitBtn" />
 
         <Button
-            android:id="@+id/button15"
-            android:layout_width="240dp"
+            android:id="@+id/submitBtn"
+            android:layout_width="190dp"
             android:layout_height="80dp"
             android:background="@android:color/holo_blue_light"
             android:text="Submit"
@@ -72,12 +72,12 @@
             app:layout_constraintStart_toStartOf="parent" />
 
         <Spinner
-            android:id="@+id/spinner7"
+            android:id="@+id/feedbackCategory"
             android:layout_width="174dp"
             android:layout_height="34dp"
-            android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="24dp"
+            android:layout_marginEnd="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/textView53"
@@ -109,7 +109,7 @@
             app:layout_constraintTop_toBottomOf="@+id/divider20" />
 
         <EditText
-            android:id="@+id/editText9"
+            android:id="@+id/feedbackDetails"
             android:layout_width="370dp"
             android:layout_height="43dp"
             android:layout_marginTop="12dp"
@@ -120,12 +120,13 @@
             app:layout_constraintTop_toBottomOf="@+id/textView54" />
 
         <RatingBar
-            android:id="@+id/ratingBar"
+            android:id="@+id/feedbackRating"
             android:layout_width="241dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="104dp"
-            android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="104dp"
+            android:numStars="5"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.502"
