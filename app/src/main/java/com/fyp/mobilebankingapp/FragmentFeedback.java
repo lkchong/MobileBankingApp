@@ -1,5 +1,6 @@
 package com.fyp.mobilebankingapp;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -17,7 +18,20 @@ import android.widget.RatingBar;
 import android.widget.Spinner;
 import android.widget.Switch;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Array;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.ProtocolException;
+import java.net.URL;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,8 +40,19 @@ public class FragmentFeedback extends Fragment {
     Spinner feedbackSpinner;
     RatingBar ratingBar;
 
+    AlertDialog.Builder alertDialogBuilder;
+
+    // Variable for feedback insertion into database
+    String custID;
+    String feedbackCategory;
+    String feedbackRating;
+    String feedbackDetails;
+
+    String result;
+
     public FragmentFeedback() {
     }
+
 
     @Nullable
     @Override
@@ -78,42 +103,102 @@ public class FragmentFeedback extends Fragment {
     }
 
     public void submitFeedback() {
-        String feedbackCategory = feedbackSpinner.getSelectedItem().toString();
-        String feedbackDetails = ((EditText)view.findViewById(R.id.feedbackDetails))
-                                                        .getText().toString();
-
-        FeedbackBackground feedbackBackground = new FeedbackBackground();
+        custID = getActivity().getIntent().getStringExtra("custID");
+        feedbackCategory = feedbackSpinner.getSelectedItem().toString();
 
         if(feedbackCategory.equals("General")) {
-            String rating = Float.toHexString(ratingBar.getRating());
-            feedbackBackground.execute(feedbackCategory, feedbackDetails, rating);
+            feedbackRating = Float.toString(ratingBar.getRating());
         }
-        else {
-            feedbackBackground.execute(feedbackCategory, feedbackDetails, null);
+        else
+        {
+            feedbackRating = "-";
         }
+
+        feedbackDetails = ((EditText)view.findViewById(R.id.feedbackDetails))
+                                                        .getText().toString().trim();
+
+        FeedbackBackground feedbackBackground = new FeedbackBackground();
+        feedbackBackground.execute();
     }
 
 
     public class FeedbackBackground extends AsyncTask<String, Void, String> {
 
         @Override
-        protected String doInBackground(String... params) {
-
-
-
-            return null;
+        protected void onPreExecute() {
+            alertDialogBuilder = new AlertDialog.Builder(getActivity());
+            alertDialogBuilder.setCancelable(false)
+                                .setPositiveButton("OK", null)
+                                    .setTitle("Feedback Submission");
         }
 
         @Override
-        protected void onPostExecute(String s) {
-            super.onPostExecute(s);
+        protected String doInBackground(String... params) {
+
+            String host = getString(R.string.ip_address);    // IP use 10.0.2.2 for testing using emulator
+            String submitfeedback_URL = host + "submitfeedback.php";
+
+            try {
+                URL url = new URL(submitfeedback_URL);
+                HttpURLConnection httpURLConnection = (HttpURLConnection)url.openConnection();
+                httpURLConnection.setRequestMethod("POST");
+                httpURLConnection.setDoOutput(true);
+                httpURLConnection.setDoInput(true);
+
+                OutputStream outputStream = httpURLConnection.getOutputStream();
+                BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
+
+                String post_data = URLEncoder.encode("custID","UTF-8")+"="+URLEncoder.encode(custID,"UTF-8")+"&"
+                        +URLEncoder.encode("feedbackCategory","UTF-8")+"="+URLEncoder.encode(feedbackCategory,"UTF-8")+"&"
+                        +URLEncoder.encode("feedbackRating","UTF-8")+"="+URLEncoder.encode(feedbackRating,"UTF-8")+"&"
+                        +URLEncoder.encode("feedbackDetails","UTF-8")+"="+URLEncoder.encode(feedbackDetails,"UTF-8");
+
+                bufferedWriter.write(post_data);
+                bufferedWriter.flush();
+                bufferedWriter.close();
+                outputStream.close();
+
+                InputStream inputStream = httpURLConnection.getInputStream();
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "iso-8859-1"));
+
+                String line;
+                result = "";
+
+                while((line = bufferedReader.readLine()) != null) {
+                    result = result + line;
+                }
+
+                bufferedReader.close();
+                inputStream.close();
+                httpURLConnection.disconnect();
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            } catch (ProtocolException e) {
+                e.printStackTrace();
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            return result;
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            if(result.equals("Success")) {
+                alertDialogBuilder.setMessage("Feedback Submission Successful")
+                                    .create().show();
+            }
+            else {
+                alertDialogBuilder.setMessage("Feedback Submission Failed")
+                                    .create().show();
+            }
         }
 
         @Override
         protected void onProgressUpdate(Void... values) {
             super.onProgressUpdate(values);
         }
-
-
     }
 }
