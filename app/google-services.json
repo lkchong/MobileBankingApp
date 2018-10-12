@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "300168969399",
+    "firebase_url": "https://mobilebankingapp-218707.firebaseio.com",
+    "project_id": "mobilebankingapp-218707",
+    "storage_bucket": "mobilebankingapp-218707.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:300168969399:android:a770d8db981b68d2",
+        "android_client_info": {
+          "package_name": "com.fyp.mobilebankingapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "300168969399-3rvl4j52ks8v3v1606sjas0fpstm9l4p.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.fyp.mobilebankingapp",
+            "certificate_hash": "254bb8816f8ca024dc3eb026a231e5d90f42b5e6"
+          }
+        },
+        {
+          "client_id": "300168969399-3fhim702anvbkm6mnk38gi90v83ljrjg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDzzIeH0xc_Qzmb2bF3Wllm2Az1PlK6X8I"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "300168969399-3fhim702anvbkm6mnk38gi90v83ljrjg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
