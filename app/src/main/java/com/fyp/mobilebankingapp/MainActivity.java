@@ -1,9 +1,39 @@
 package com.fyp.mobilebankingapp;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.UnsupportedEncodingException;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.ProtocolException;
+import java.net.URL;
+import java.net.URLEncoder;
+import java.util.HashMap;
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -39,5 +69,77 @@ public class MainActivity extends AppCompatActivity {
         tabLayout.getTabAt(2).setIcon(R.drawable.baseline_list_alt_white_24dp);
         tabLayout.getTabAt(3).setIcon(R.drawable.baseline_feedback_white_24dp);
         tabLayout.getTabAt(4).setIcon(R.drawable.baseline_settings_white_24dp);
+
+        FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(new OnSuccessListener<InstanceIdResult>() {
+            @Override
+            public void onSuccess(InstanceIdResult instanceIdResult) {
+                String deviceToken = instanceIdResult.getToken();
+
+                SharedPreferences fcmPrefs = getApplicationContext().getSharedPreferences("fcmPrefs", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = fcmPrefs.edit();
+                editor.putString("fcmToken", deviceToken);
+                editor.commit();
+            }
+        });
+
+        //MainBackground mainBackground = new MainBackground();
+        //mainBackground.execute();
+    }
+
+    public class MainBackground extends AsyncTask<String, Void, String> {
+
+        @Override
+        protected void onPreExecute() {
+        }
+
+        @Override
+        protected String doInBackground(String... params) {
+
+            String host = getString(R.string.ip_address);    // IP use 10.0.2.2 for testing using emulator
+            String insertToken_URL = host + "fcm/insert_token.php";
+
+            try {
+                StringRequest stringRequest = new StringRequest(Request.Method.POST, insertToken_URL,
+                        new Response.Listener<String>() {
+                            @Override
+                            public void onResponse(String response) {
+
+                            }
+                        }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+
+                    }
+                }) {
+                    @Override
+                    protected Map<String, String> getParams() throws AuthFailureError {
+                        Map<String, String> params = new HashMap<String, String>();
+
+                        SharedPreferences fcmPrefs = getApplicationContext().getSharedPreferences("fcmPrefs", Context.MODE_PRIVATE);
+                        String token = fcmPrefs.getString("fcmToken", "");
+
+                        params.put("fcm_token", token);
+
+                        return params;
+                    }
+                };
+
+                FCMReceive.getFcmReceive(MainActivity.this).addToRequestQueue(stringRequest);
+            }
+            catch(Exception e) {
+                e.printStackTrace();
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+        }
+
+        @Override
+        protected void onProgressUpdate(Void... values) {
+            super.onProgressUpdate(values);
+        }
     }
 }

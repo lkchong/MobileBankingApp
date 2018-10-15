@@ -10,4 +10,6 @@
         <item>Mobile App</item>
         <item>Banking</item>
     </string-array>
+    <string name="notification_channel_id">mobilebankingapp</string>
+    <string name="notification_channel_name">AuthNotification</string>
 </resources>
