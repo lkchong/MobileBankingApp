@@ -1,7 +1,6 @@
 package com.fyp.mobilebankingapp;
 
 import android.app.AlertDialog;
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -9,14 +8,12 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewOutlineProvider;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RatingBar;
 import android.widget.Spinner;
-import android.widget.Switch;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -26,14 +23,11 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
-import java.lang.reflect.Array;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
 import java.net.URLEncoder;
-import java.util.ArrayList;
-import java.util.List;
 
 public class FragmentFeedback extends Fragment {
     View view;
@@ -108,17 +102,37 @@ public class FragmentFeedback extends Fragment {
 
         if(feedbackCategory.equals("General")) {
             feedbackRating = Float.toString(ratingBar.getRating());
+            feedbackDetails = ((EditText)view.findViewById(R.id.feedbackDetails))
+                    .getText().toString().trim();
+
+            if(!feedbackRating.equals("0.0") && !feedbackDetails.equals("")) {
+                FeedbackBackground feedbackBackground = new FeedbackBackground();
+                feedbackBackground.execute();
+            } else {
+                AlertDialog.Builder alertDialogBuilder;
+                alertDialogBuilder = new AlertDialog.Builder(getActivity());
+                alertDialogBuilder.setCancelable(true).setTitle("Feedback Status");
+                alertDialogBuilder.setMessage("Please fill in the details and rate");
+                alertDialogBuilder.create().show();
+            }
         }
         else
         {
             feedbackRating = "-";
+            feedbackDetails = ((EditText)view.findViewById(R.id.feedbackDetails))
+                    .getText().toString().trim();
+
+            if(!feedbackDetails.equals("")) {
+                FeedbackBackground feedbackBackground = new FeedbackBackground();
+                feedbackBackground.execute();
+            } else {
+                AlertDialog.Builder alertDialogBuilder;
+                alertDialogBuilder = new AlertDialog.Builder(getActivity());
+                alertDialogBuilder.setCancelable(true).setTitle("Feedback Status");
+                alertDialogBuilder.setMessage("Please fill in the details");
+                alertDialogBuilder.create().show();
+            }
         }
-
-        feedbackDetails = ((EditText)view.findViewById(R.id.feedbackDetails))
-                                                        .getText().toString().trim();
-
-        FeedbackBackground feedbackBackground = new FeedbackBackground();
-        feedbackBackground.execute();
     }
 
 
@@ -187,7 +201,7 @@ public class FragmentFeedback extends Fragment {
         @Override
         protected void onPostExecute(String result) {
             if(result.equals("Success")) {
-                alertDialogBuilder.setMessage("Feedback Submission Successful")
+                alertDialogBuilder.setMessage("Feedback Submission Successful" + feedbackRating)
                                     .create().show();
             }
             else {

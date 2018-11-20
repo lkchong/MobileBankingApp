@@ -42,24 +42,26 @@ public class AccountDetailsActivity extends AppCompatActivity {
                     TextView accountBalance = findViewById(R.id.accountBalance);
                     accountBalance.setText("$" + balance);
 
-                    // Populate Transaction List with items
+                    // Storing transaction history into JSONArray
                     JSONArray transactionList = jsonAccountDetails.getJSONArray("transaction_history");
 
-
+                    // Populate Transaction List Array adapter with results
                     for(int i = 0; i < transactionList.length() && i < 10; i++) {
                         JSONObject account = transactionList.getJSONObject(i);
                         String transactionDatetime = account.getString("transc_datetime").toString();
                         String transactionReference = account.getString("transc_reference").toString();
                         String transactionAmount = account.getString("transc_amount").toString();
 
-                        transactionItemList.add(new TransactionItem(transactionDatetime, transactionReference, "$" + transactionAmount));
+                        // Adding transaction details to array list
+                        transactionItemList.add(new TransactionItem(transactionDatetime, transactionReference,
+                                                                    "$" + transactionAmount));
                     }
 
-                    TransactionListAdapter adapter = new TransactionListAdapter(AccountDetailsActivity.this, R.layout.transc_adapter_view_layout,
-                                                                                transactionItemList);
+                    // Array adapter for storing array list
+                    TransactionListAdapter adapter = new TransactionListAdapter(AccountDetailsActivity.this,
+                                                        R.layout.transc_adapter_view_layout, transactionItemList);
+                    // Setting array adapter to ListView
                     transactionListView.setAdapter(adapter);
-
-
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

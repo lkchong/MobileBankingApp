@@ -8,18 +8,18 @@
         android:id="@+id/fingerprintImage"
         android:layout_width="82dp"
         android:layout_height="68dp"
-        android:layout_alignParentTop="true"
+        android:layout_below="@+id/welcomeText"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="52dp"
+        android:layout_marginTop="12dp"
         app:srcCompat="?android:attr/fingerprintAuthDrawable" />
 
     <TextView
         android:id="@+id/fingerprintText"
         android:layout_width="wrap_content"
         android:layout_height="45dp"
-        android:layout_alignParentTop="true"
+        android:layout_below="@+id/fingerprintImage"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="129dp"
+        android:layout_marginTop="9dp"
         android:text="Place finger on scanner to login" />
 
     <TextView

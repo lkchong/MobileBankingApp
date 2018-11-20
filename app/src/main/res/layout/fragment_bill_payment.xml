@@ -39,7 +39,7 @@
             android:id="@+id/textView22"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="60dp"
+            android:layout_marginStart="40dp"
             android:layout_marginTop="16dp"
             android:text="Bill Account NO:"
             android:textSize="24sp"
@@ -51,7 +51,7 @@
             android:id="@+id/textView26"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="164dp"
+            android:layout_marginStart="40dp"
             android:layout_marginTop="24dp"
             android:text="Payee:"
             android:textSize="24sp"
@@ -63,8 +63,8 @@
             android:id="@+id/textView27"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="124dp"
-            android:layout_marginTop="36dp"
+            android:layout_marginStart="92dp"
+            android:layout_marginTop="44dp"
             android:text="Amount:"
             android:textSize="24sp"
             android:textStyle="bold"
@@ -75,7 +75,7 @@
             android:id="@+id/textView25"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="80dp"
+            android:layout_marginStart="40dp"
             android:layout_marginTop="28dp"
             android:text="Bank Account:"
             android:textSize="24sp"
@@ -84,30 +84,30 @@
             app:layout_constraintTop_toBottomOf="@+id/divider13" />
 
         <Spinner
-            android:id="@+id/spinner5"
+            android:id="@+id/accountSpinner"
             android:layout_width="175dp"
             android:layout_height="33dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="28dp"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintBottom_toBottomOf="@+id/textView25"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/textView25"
-            app:layout_constraintTop_toBottomOf="@+id/divider13" />
+            app:layout_constraintStart_toEndOf="@+id/textView25" />
 
         <Spinner
-            android:id="@+id/spinner6"
+            android:id="@+id/payeeSpinner"
             android:layout_width="175dp"
             android:layout_height="33dp"
-            android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="24dp"
+            android:layout_marginEnd="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/textView26"
             app:layout_constraintTop_toBottomOf="@+id/divider14" />
 
         <TextView
-            android:id="@+id/textView36"
+            android:id="@+id/billAccountNO"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -118,11 +118,11 @@
             app:layout_constraintStart_toEndOf="@+id/textView22" />
 
         <EditText
-            android:id="@+id/editText7"
+            android:id="@+id/amountEdittext"
             android:layout_width="152dp"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
             android:ems="10"
             android:inputType="textPersonName"
             android:textAlignment="center"
@@ -153,7 +153,7 @@
             app:layout_constraintTop_toBottomOf="@+id/textView22" />
 
         <Button
-            android:id="@+id/button7"
+            android:id="@+id/confirmBtn"
             android:layout_width="125dp"
             android:layout_height="68dp"
             android:layout_marginTop="68dp"
@@ -164,6 +164,18 @@
             app:layout_constraintHorizontal_bias="0.501"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView27" />
+
+        <ImageButton
+            android:id="@+id/addNewBillPayeeBtn"
+            android:layout_width="33dp"
+            android:layout_height="36dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="72dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.8"
+            app:layout_constraintStart_toEndOf="@+id/payeeSpinner"
+            app:layout_constraintTop_toBottomOf="@+id/divider14"
+            app:srcCompat="@drawable/ic_baseline_add_circle_outline_24px" />
 
     </android.support.constraint.ConstraintLayout>
 </FrameLayout>

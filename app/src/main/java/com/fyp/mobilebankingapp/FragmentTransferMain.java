@@ -12,6 +12,8 @@ import android.widget.Button;
 
 public class FragmentTransferMain extends Fragment {
     View view;
+    String custID;
+
     public FragmentTransferMain() {
     }
 
@@ -21,11 +23,14 @@ public class FragmentTransferMain extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_transfer_main, container, false);
 
+        custID = getActivity().getIntent().getStringExtra("custID");
+
         Button buttonOwn = view.findViewById(R.id.transferToOwnAccBtn);
         buttonOwn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getActivity(), TransferToOwnAcc.class);
+                intent.putExtra("custID", custID);
                 startActivity(intent);
             }
         });
@@ -35,6 +40,7 @@ public class FragmentTransferMain extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getActivity(), TransferToOtherAcc.class);
+                intent.putExtra("custID", custID);
                 startActivity(intent);
             }
         });

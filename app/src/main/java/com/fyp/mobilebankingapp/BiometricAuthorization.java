@@ -1,8 +1,8 @@
 package com.fyp.mobilebankingapp;
 
 import android.Manifest;
-import android.app.AlertDialog;
 import android.app.KeyguardManager;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.hardware.fingerprint.FingerprintManager;
@@ -13,49 +13,51 @@ import android.security.keystore.KeyProperties;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
+import android.widget.TextView;
+
 import java.security.KeyStore;
+
 import javax.crypto.Cipher;
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
 
-public class LoginActivity extends AppCompatActivity {
+public class BiometricAuthorization extends AppCompatActivity {
 
-    private EditText usernameEditText;
-    private EditText passwordEditText;
-
-    private SharedPreferences sharedPreferences;
     private String custID;
-    private String username;
-    private Button loginBtn;
+    private String transctID;
+    private String accountNO;
+    private String payeeID;
+    private String transctAmount;
+    private String transctDetails;
+    private String payeeName;
+    private String transctDateTime;
+    TextView transcResult;
 
-    private String KEY_NAME = "fingerprintkey";
+    private String username;
+    private SharedPreferences bioAuthPrefs;
     private FingerprintDialog fingerprintDialog;
+    private String KEY_NAME = "fingerprintkey";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_biometric_authorization);
 
-        usernameEditText = (EditText)findViewById(R.id.username);
-        passwordEditText = (EditText)findViewById(R.id.password);
+        bioAuthPrefs = getSharedPreferences("bioAuthPrefs", Context.MODE_PRIVATE);
+        username = bioAuthPrefs.getString("USERNAME", null);
+        custID = getIntent().getStringExtra("custID");
+        transctID = getIntent().getStringExtra("transctID");
+        accountNO = getIntent().getStringExtra("accountNO");
+        payeeID = getIntent().getStringExtra("payeeID");
+        transctAmount = getIntent().getStringExtra("transctAmount");
+        transctDetails = getIntent().getStringExtra("transctDetails");
+        payeeName = getIntent().getStringExtra("payeeName");
+        transctDateTime = getIntent().getStringExtra("transctDateTime");
+        transcResult = findViewById(R.id.transcResults);
 
-        sharedPreferences = getSharedPreferences("loginPrefs", MODE_PRIVATE);
-        if (sharedPreferences.getBoolean("bioLoginSwitch", false)) {
-            custID = sharedPreferences.getString("CUSTID", null);
-            username = sharedPreferences.getString("USERNAME", null);
-
-            usernameEditText.setVisibility(View.INVISIBLE);
-            passwordEditText.setVisibility(View.INVISIBLE);
-
-            loginBtn = (Button) findViewById(R.id.loginButton);
-            loginBtn.setVisibility(View.INVISIBLE);
-
-            biometricLogin();
-        }
+        biometricLogin();
     }
+
 
     protected void biometricLogin() {
         fingerprintDialog = new FingerprintDialog();
@@ -63,10 +65,17 @@ public class LoginActivity extends AppCompatActivity {
 
         Bundle dialogBundle = new Bundle();
         dialogBundle.putString("username", username);
-        dialogBundle.putString("type", "biometricLogin");
+        dialogBundle.putString("type", "biometricAuthorization");
+        dialogBundle.putString("transctID", transctID);
+        dialogBundle.putString("transctDetails",transctDetails);
+        dialogBundle.putString("payeeName", payeeName);
+        dialogBundle.putString("transctAmount", transctAmount);
+        dialogBundle.putString("payeeName", payeeName);
+        dialogBundle.putString("transctDateTime", transctDateTime);
 
         fingerprintDialog.setArguments(dialogBundle);
         fingerprintDialog.show(getSupportFragmentManager(), "fingerprint dialog");
+
 
         KeyguardManager keyguardManager = (KeyguardManager) getSystemService(KEYGUARD_SERVICE);
         FingerprintManager fingerprintManager = (FingerprintManager) getSystemService(FINGERPRINT_SERVICE);
@@ -88,7 +97,6 @@ public class LoginActivity extends AppCompatActivity {
             return;
         }
 
-        // Keystore act as a container for securely storing cryptographic key
         KeyStore keyStore;
 
         try {
@@ -98,7 +106,6 @@ public class LoginActivity extends AppCompatActivity {
             return;
         }
 
-        // Key generator to generate encryption key
         KeyGenerator keyGenerator;
 
         try {
@@ -108,12 +115,10 @@ public class LoginActivity extends AppCompatActivity {
             return;
         }
 
-        // Generate encrption key and storing in keystore
         try {
             keyStore.load(null);
             keyGenerator.init(
-                    new KeyGenParameterSpec.Builder(KEY_NAME, KeyProperties.PURPOSE_ENCRYPT |
-                                                                        KeyProperties.PURPOSE_DECRYPT)
+                    new KeyGenParameterSpec.Builder(KEY_NAME, KeyProperties.PURPOSE_ENCRYPT | KeyProperties.PURPOSE_DECRYPT)
                             .setBlockModes(KeyProperties.BLOCK_MODE_CBC)
                             .setUserAuthenticationRequired(true)
                             .setEncryptionPaddings(KeyProperties.ENCRYPTION_PADDING_PKCS7)
@@ -125,7 +130,7 @@ public class LoginActivity extends AppCompatActivity {
             return;
         }
 
-        // Create encryption and decryption algorithm
+        // Encryption and decryption algorithm
         Cipher cipher;
 
         try {
@@ -137,7 +142,7 @@ public class LoginActivity extends AppCompatActivity {
             return;
         }
 
-        //Create secret key object from keystore
+        //Create secret key object
         try {
             keyStore.load(null);
             SecretKey secretKey = (SecretKey) keyStore.getKey(KEY_NAME, null);
@@ -147,31 +152,12 @@ public class LoginActivity extends AppCompatActivity {
             return;
         }
 
-        // CryptoObject allow for knowing if a new fingerprint was added
         FingerprintManager.CryptoObject cryptoObject = new FingerprintManager.CryptoObject(cipher);
 
-        // Cancellationsignal allows for operation in progress to be canceled
         CancellationSignal cancellationSignal = new CancellationSignal();
-
-        // Activate the fingerprint scanner
         fingerprintManager.authenticate(cryptoObject, cancellationSignal, 0,
-                new AuthenticationHandler(this, fingerprintDialog, custID, username), null);
+                new AuthenticationHandlerAuth(this, fingerprintDialog, username, custID, transctID
+                                                , accountNO, payeeID, transctAmount, transcResult), null);
     }
 
-    protected void onLogin(View view){
-        String user = usernameEditText.getText().toString();
-        String pass = passwordEditText.getText().toString();
-        String type = "login";
-
-        if(!user.equals("") && !pass.equals("")) {
-            BackgroundTask backgroundTask = new BackgroundTask(this);
-            backgroundTask.execute(type, user, pass);
-        } else {
-            AlertDialog.Builder alertDialogBuilder;
-            alertDialogBuilder = new AlertDialog.Builder(this);
-            alertDialogBuilder.setCancelable(true).setTitle("Login Status");
-            alertDialogBuilder.setMessage("Please fill in both username and password");
-            alertDialogBuilder.create().show();
-        }
-    }
 }

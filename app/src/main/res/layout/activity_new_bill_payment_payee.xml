@@ -7,14 +7,14 @@
     tools:context=".NewBillPaymentPayee">
 
     <Spinner
-        android:id="@+id/spinner8"
+        android:id="@+id/payeeSpinner"
         android:layout_width="175dp"
         android:layout_height="33dp"
-        android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="8dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.022"
         app:layout_constraintStart_toEndOf="@+id/textView39"
         app:layout_constraintTop_toBottomOf="@+id/divider11" />
 
@@ -72,8 +72,8 @@
         android:id="@+id/textView39"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="164dp"
-        android:layout_marginTop="28dp"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="32dp"
         android:text="Payee:"
         android:textSize="24sp"
         android:textStyle="bold"
@@ -103,7 +103,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView38" />
 
     <Button
-        android:id="@+id/button9"
+        android:id="@+id/addBtn"
         android:layout_width="125dp"
         android:layout_height="68dp"
         android:layout_marginTop="28dp"
@@ -116,11 +116,11 @@
         app:layout_constraintTop_toBottomOf="@+id/divider12" />
 
     <EditText
-        android:id="@+id/editText8"
+        android:id="@+id/billAccNOEdittext"
         android:layout_width="174dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
         android:layout_marginStart="8dp"
+        android:layout_marginEnd="16dp"
         android:ems="10"
         android:inputType="textPersonName"
         android:textSize="24sp"

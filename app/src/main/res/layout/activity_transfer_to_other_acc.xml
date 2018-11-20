@@ -6,26 +6,39 @@
     android:layout_height="match_parent"
     tools:context=".TransferToOtherAcc">
 
-    <Spinner
-        android:id="@+id/spinner2"
-        android:layout_width="189dp"
-        android:layout_height="33dp"
-        android:layout_marginEnd="16dp"
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="28dp"
-        android:spinnerMode="dialog"
+        android:layout_marginTop="24dp"
+        android:contentDescription="bankicon"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/textView11"
-        app:layout_constraintTop_toBottomOf="@+id/spinner3" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/bank_logo" />
 
     <Spinner
-        android:id="@+id/spinner3"
-        android:layout_width="190dp"
+        android:id="@+id/receiverAccountList"
+        android:layout_width="150dp"
         android:layout_height="33dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="24dp"
         android:layout_marginEnd="16dp"
+        android:spinnerMode="dialog"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.008"
+        app:layout_constraintStart_toEndOf="@+id/textView11"
+        app:layout_constraintTop_toBottomOf="@+id/ownAccountList" />
+
+    <Spinner
+        android:id="@+id/ownAccountList"
+        android:layout_width="150dp"
+        android:layout_height="33dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="220dp"
+        android:layout_marginTop="204dp"
+        android:layout_marginEnd="16dp"
         android:spinnerMode="dialog"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -36,8 +49,8 @@
         android:id="@+id/textView11"
         android:layout_width="106dp"
         android:layout_height="37dp"
-        android:layout_marginStart="112dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginStart="88dp"
+        android:layout_marginTop="20dp"
         android:text="Receiver:"
         android:textAlignment="viewEnd"
         android:textSize="24sp"
@@ -49,8 +62,8 @@
         android:id="@+id/textView10"
         android:layout_width="106dp"
         android:layout_height="37dp"
-        android:layout_marginStart="112dp"
-        android:layout_marginTop="220dp"
+        android:layout_marginStart="92dp"
+        android:layout_marginTop="200dp"
         android:text="Sender:"
         android:textAlignment="viewEnd"
         android:textSize="24sp"
@@ -76,7 +89,7 @@
         android:background="@android:color/background_dark"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView20" />
+        app:layout_constraintTop_toBottomOf="@+id/transferTypeTextview" />
 
     <View
         android:id="@+id/divider7"
@@ -92,61 +105,22 @@
         android:id="@+id/textView8"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="140dp"
+        android:layout_marginTop="36dp"
+        android:layout_marginEnd="8dp"
         android:text="Select Bank Account"
         android:textSize="30sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="61dp"
-        android:layout_height="49dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="36dp"
-        android:contentDescription="bankicon"
-        app:layout_constraintEnd_toStartOf="@+id/textView6"
-        app:layout_constraintHorizontal_bias="0.954"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/bank_icon" />
-
-    <TextView
-        android:id="@+id/textView6"
-        android:layout_width="168dp"
-        android:layout_height="54dp"
-        android:layout_marginEnd="124dp"
-        android:layout_marginTop="36dp"
-        android:text="ABC Bank"
-        android:textSize="36sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
     <TextView
         android:id="@+id/textView12"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="52dp"
-        android:layout_marginTop="24dp"
-        android:text="Payment Reference:"
-        android:textAlignment="viewEnd"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/divider6" />
-
-    <TextView
-        android:id="@+id/textView19"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="52dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="32dp"
         android:text="Payment Reference:"
         android:textAlignment="viewEnd"
         android:textSize="18sp"
@@ -155,11 +129,11 @@
         app:layout_constraintTop_toBottomOf="@+id/divider6" />
 
     <EditText
-        android:id="@+id/editText2"
+        android:id="@+id/paymentRefEdittext"
         android:layout_width="185dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
         android:layout_marginStart="8dp"
+        android:layout_marginEnd="16dp"
         android:ems="10"
         android:inputType="textPersonName"
         app:layout_constraintBaseline_toBaselineOf="@+id/textView12"
@@ -180,11 +154,11 @@
         app:layout_constraintTop_toBottomOf="@+id/divider9" />
 
     <EditText
-        android:id="@+id/editText3"
+        android:id="@+id/amountEdittext"
         android:layout_width="191dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
         android:ems="10"
         android:inputType="textPersonName"
         android:textAlignment="center"
@@ -195,7 +169,7 @@
         app:layout_constraintStart_toEndOf="@+id/textView14" />
 
     <Button
-        android:id="@+id/button4"
+        android:id="@+id/transferConfirmBtn"
         android:layout_width="97dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="44dp"
@@ -207,31 +181,42 @@
         app:layout_constraintTop_toBottomOf="@+id/textView14" />
 
     <TextView
-        android:id="@+id/textView20"
+        android:id="@+id/transferTypeTextview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="92dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginStart="88dp"
+        android:layout_marginTop="24dp"
         android:text="Transfer Type:"
         android:textAlignment="viewEnd"
         android:textColor="@android:color/black"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView19" />
+        app:layout_constraintTop_toBottomOf="@+id/textView12" />
 
-    <EditText
-        android:id="@+id/editText6"
-        android:layout_width="185dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
+    <Spinner
+        android:id="@+id/transferTypeList"
+        android:layout_width="190dp"
+        android:layout_height="33dp"
         android:layout_marginStart="8dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:textAlignment="center"
-        app:layout_constraintBaseline_toBaselineOf="@+id/textView20"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.031"
-        app:layout_constraintStart_toEndOf="@+id/textView20" />
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/transferTypeTextview"
+        app:layout_constraintTop_toBottomOf="@+id/paymentRefEdittext" />
+
+    <ImageButton
+        android:id="@+id/addNewPayeeBtn"
+        android:layout_width="33dp"
+        android:layout_height="36dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/receiverAccountList"
+        app:layout_constraintTop_toBottomOf="@+id/ownAccountList"
+        app:srcCompat="@drawable/ic_baseline_add_circle_outline_24px" />
 
 </android.support.constraint.ConstraintLayout>

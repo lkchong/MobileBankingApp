@@ -29,7 +29,18 @@ public class FingerprintDialog extends AppCompatDialogFragment {
         imageView = view.findViewById(R.id.fingerprintImage);
         welcomeView = view.findViewById(R.id.welcomeText);
 
-        welcomeView.setText("Welcome, " + getArguments().getString("username"));
+        if(getArguments().getString("type").toString().equals("biometricLogin")) {
+            welcomeView.setText("Welcome, " + getArguments().getString("username"));
+        }
+
+        if(getArguments().getString("type").toString().equals("biometricAuthorization")) {
+            welcomeView.setText("Welcome, " + getArguments().getString("username") + "\n" +
+                                "Transaction ID: " + getArguments().getString("transctID") + "\n" +
+                                "Details: " + getArguments().getString("transctDetails") + "\n" +
+                                "DateTime: " + getArguments().get("transctDateTime") + "\n" +
+                                "To: " + getArguments().getString("payeeName") + "\n" +
+                                "Amount: RM " + getArguments().getString("transctAmount"));
+        }
 
         return builder.create();
     }

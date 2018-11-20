@@ -22,65 +22,54 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
 
-public class BillPaymentSummary extends AppCompatActivity {
+public class TransferSummaryOwn extends AppCompatActivity {
 
     String custID;
-    String accountNO;
-    String accountName;
-    String billOrganization;
-    String billAccountNO;
-    String billAmount;
+    String sender;
+    String receiver;
+    String paymentReference;
+    String transferAmount;
     String transctID;
     String transctDateTime;
-
-    TextView bankAccountTv;
-    TextView payeeOrganizationTv;
-    TextView billAccountNOTv;
-    TextView dateTimeTv;
-    TextView amountTv;
+    String senderAccNO;
+    String receiverAccNO;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_bill_payment_summary);
+        setContentView(R.layout.activity_transfer_summary_own);
 
-        // Getting data from intent
-        Intent intent = getIntent();
-        custID = intent.getStringExtra("custID");
-        accountNO = intent.getStringExtra("accountNO");
-        accountName = intent.getStringExtra("accountName");
-        billOrganization = intent.getStringExtra("billOrganization");
-        billAccountNO = intent.getStringExtra("billAccountNO");
-        billAmount = intent.getStringExtra("billAmount");
-        transctID = intent.getStringExtra("transctID");
-        transctDateTime = intent.getStringExtra("transctDateTime");
+        custID = getIntent().getStringExtra("custID");
+        sender = getIntent().getStringExtra("sender");
+        receiver = getIntent().getStringExtra("receiver");
+        paymentReference = getIntent().getStringExtra("paymentReference");
+        transferAmount = getIntent().getStringExtra("transferAmount");
+        transctID = getIntent().getStringExtra("transctID");
+        transctDateTime = getIntent().getStringExtra("transctDateTime");
+        senderAccNO = getIntent().getStringExtra("senderAccNO");
+        receiverAccNO = getIntent().getStringExtra("receiverAccNO");
 
-        // Initializing textview
-        bankAccountTv = findViewById(R.id.bankAccNOTextview);
-        payeeOrganizationTv = findViewById(R.id.payeeTextview);
-        billAccountNOTv = findViewById(R.id.billAccNOTextview);
-        dateTimeTv = findViewById(R.id.dateTimeTextview);
-        amountTv = findViewById(R.id.amountTextview);
+        final TextView senderTextview = findViewById(R.id.senderTextview);
+        final TextView receiverTextview = findViewById(R.id.receiverTextview);
+        final TextView paymentRefTextview = findViewById(R.id.paymentRefTextview);
+        final TextView dateTimeTextview = findViewById(R.id.dateTimeTextview);
+        final TextView amountTextview = findViewById(R.id.amountTextview);
 
-        // Set value to textview
-        bankAccountTv.setText(accountName + "\n" + accountNO);
-        payeeOrganizationTv.setText(billOrganization);
-        billAccountNOTv.setText(billAccountNO);
-        dateTimeTv.setText(transctDateTime);
-        amountTv.setText(billAmount);
+        senderTextview.setText(sender + "\n" + senderAccNO);
+        receiverTextview.setText(receiver + "\n" + receiverAccNO);
+        paymentRefTextview.setText(paymentReference);
+        dateTimeTextview.setText(transctDateTime);
+        amountTextview.setText("RM " + transferAmount);
 
-
-        // Confirm button listener
-        Button finalConfirm = findViewById(R.id.confirmBtn);
+        Button finalConfirm = findViewById(R.id.finalConfirmBtn);
         finalConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                BillTaskFinal transferTaskFinal = new BillTaskFinal();
+                TransferTaskFinal transferTaskFinal = new TransferTaskFinal();
                 transferTaskFinal.execute();
             }
         });
 
-        // Cancel button listener
         Button cancelBtn = findViewById(R.id.cancelBtn);
         cancelBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,16 +80,14 @@ public class BillPaymentSummary extends AppCompatActivity {
         });
     }
 
-
-    // Async Task for Billing final
-    public class BillTaskFinal extends AsyncTask<String, Void, String> {
+    public class TransferTaskFinal extends AsyncTask<String, Void, String> {
         String result;
 
         @Override
         protected String doInBackground(String... params) {
 
             String host = getString(R.string.ip_address);    // IP use 10.0.2.2 for testing using emulator
-            String transferOwnFinal = host + "billing_final.php";
+            String transferOwnFinal = host + "transfer_own_final.php";
 
             try {
                 URL url = new URL(transferOwnFinal);
@@ -112,9 +99,9 @@ public class BillPaymentSummary extends AppCompatActivity {
                 OutputStream outputStream = httpURLConnection.getOutputStream();
                 BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
 
-                String post_data = URLEncoder.encode("accountNO","UTF-8")+"="+URLEncoder.encode(accountNO,"UTF-8")+"&"
-                        +URLEncoder.encode("billOrganization","UTF-8")+"="+URLEncoder.encode(billOrganization,"UTF-8")+"&"
-                        +URLEncoder.encode("billAmount","UTF-8")+"="+URLEncoder.encode(billAmount,"UTF-8")+"&"
+                String post_data = URLEncoder.encode("senderAccNO","UTF-8")+"="+URLEncoder.encode(senderAccNO,"UTF-8")+"&"
+                        +URLEncoder.encode("receiverAccNO","UTF-8")+"="+URLEncoder.encode(receiverAccNO,"UTF-8")+"&"
+                        +URLEncoder.encode("transferAmount","UTF-8")+"="+URLEncoder.encode(transferAmount,"UTF-8")+"&"
                         +URLEncoder.encode("transctID","UTF-8")+"="+URLEncoder.encode(transctID,"UTF-8");
 
                 bufferedWriter.write(post_data);
@@ -148,36 +135,33 @@ public class BillPaymentSummary extends AppCompatActivity {
         protected void onPostExecute(String result) {
             if(result.equals("Success")) {
                 AlertDialog.Builder alertDialogBuilder;
-                alertDialogBuilder = new AlertDialog.Builder(BillPaymentSummary.this);
+                alertDialogBuilder = new AlertDialog.Builder(TransferSummaryOwn.this);
                 alertDialogBuilder.setCancelable(true).setTitle("Status");
                 alertDialogBuilder.setMessage("Payment Successful");
                 alertDialogBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Intent intent = new Intent(BillPaymentSummary.this, MainActivity.class);
+                        Intent intent = new Intent(TransferSummaryOwn.this, MainActivity.class);
                         startActivity(intent);
-                        finish();
                     }
                 });
                 alertDialogBuilder.create().show();
             } else {
                 AlertDialog.Builder alertDialogBuilder;
-                alertDialogBuilder = new AlertDialog.Builder(BillPaymentSummary.this);
+                alertDialogBuilder = new AlertDialog.Builder(TransferSummaryOwn.this);
                 alertDialogBuilder.setCancelable(true).setTitle("Status");
                 alertDialogBuilder.setMessage("Payment Unsuccessful");
                 alertDialogBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Intent intent = new Intent(BillPaymentSummary.this, MainActivity.class);
+                        Intent intent = new Intent(TransferSummaryOwn.this, MainActivity.class);
                         startActivity(intent);
-                        finish();
                     }
                 });
                 alertDialogBuilder.create().show();
             }
         }
     }
-
 
     public class TransferCancel extends AsyncTask<String, Void, String> {
         String result;
@@ -229,14 +213,18 @@ public class BillPaymentSummary extends AppCompatActivity {
         @Override
         protected void onPostExecute(String result) {
             if(result.equals("Success")) {
+                Intent intent = new Intent(TransferSummaryOwn.this, MainActivity.class);
+                startActivity(intent);
+                finish();
+            } else {
                 AlertDialog.Builder alertDialogBuilder;
-                alertDialogBuilder = new AlertDialog.Builder(BillPaymentSummary.this);
+                alertDialogBuilder = new AlertDialog.Builder(TransferSummaryOwn.this);
                 alertDialogBuilder.setCancelable(true).setTitle("Status");
-                alertDialogBuilder.setMessage("Transfer Canceled");
+                alertDialogBuilder.setMessage("Payment Unsuccessful");
                 alertDialogBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Intent intent = new Intent(BillPaymentSummary.this, MainActivity.class);
+                        Intent intent = new Intent(TransferSummaryOwn.this, MainActivity.class);
                         startActivity(intent);
                         finish();
                     }
@@ -245,4 +233,5 @@ public class BillPaymentSummary extends AppCompatActivity {
             }
         }
     }
+
 }

@@ -1,31 +1,48 @@
 package com.fyp.mobilebankingapp;
 
 import android.content.Context;
-import android.content.Intent;
 import android.hardware.fingerprint.FingerprintManager;
 import android.os.AsyncTask;
 import android.os.Handler;
+import android.widget.TextView;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLEncoder;
 
-public class AuthenticationHandler extends FingerprintManager.AuthenticationCallback {
+public class AuthenticationHandlerAuth extends FingerprintManager.AuthenticationCallback {
 
     private Context context;
     private FingerprintDialog fingerprintDialog;
-    private String custID;
-    private String user;
+    private String username;
 
-    public AuthenticationHandler (Context context, FingerprintDialog fingerprintDialog, String custID, String user) {
+    private String custID;
+    private String transctID;
+    private String accountNO;
+    private String payeeID;
+    private String transctAmount;
+    TextView transcResult;
+
+    public AuthenticationHandlerAuth (Context context, FingerprintDialog fingerprintDialog, String username, String custID,
+                                        String transctID, String accountNO, String payeeID, String transctAmount, TextView transcResult) {
         this.context = context;
         this.fingerprintDialog = fingerprintDialog;
+        this.username = username;
+
         this.custID = custID;
-        this.user = user;
+        this.transctID = transctID;
+        this.accountNO = accountNO;
+        this.payeeID = payeeID;
+        this.transctAmount = transctAmount;
+        this.transcResult = transcResult;
     }
 
     @Override
@@ -44,8 +61,8 @@ public class AuthenticationHandler extends FingerprintManager.AuthenticationCall
     public void onAuthenticationSucceeded(FingerprintManager.AuthenticationResult result) {
         super.onAuthenticationSucceeded(result);
 
-        ConnectivityTest connectivityTest = new ConnectivityTest();
-        connectivityTest.execute();
+        AuthorizeTransaction authorizeTransaction = new AuthorizeTransaction();
+        authorizeTransaction.execute();
     }
 
     @Override
@@ -55,18 +72,34 @@ public class AuthenticationHandler extends FingerprintManager.AuthenticationCall
     }
 
 
-    public class ConnectivityTest extends AsyncTask<String, Void, String> {
+    public class AuthorizeTransaction extends AsyncTask<String, Void, String> {
 
         @Override
         protected String doInBackground(String... params) {
             String host = context.getString(R.string.ip_address);
-            String conn_URL = host + "conntest.php";
+            String conn_URL = host + "fcm/authorize_payment.php";
             String result = "";
 
             try {
                 URL url = new URL(conn_URL);
                 HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
-                httpURLConnection.setRequestMethod("GET");
+                httpURLConnection.setRequestMethod("POST");
+                httpURLConnection.setDoOutput(true);
+                httpURLConnection.setDoInput(true);
+
+                OutputStream outputStream = httpURLConnection.getOutputStream();
+                BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
+
+                String post_data = URLEncoder.encode("custID","UTF-8")+"="+URLEncoder.encode(custID,"UTF-8")+"&"
+                        +URLEncoder.encode("transctID","UTF-8")+"="+URLEncoder.encode(transctID,"UTF-8")+"&"
+                        +URLEncoder.encode("accountNO","UTF-8")+"="+URLEncoder.encode(accountNO,"UTF-8")+"&"
+                        +URLEncoder.encode("payeeID","UTF-8")+"="+URLEncoder.encode(payeeID,"UTF-8")+"&"
+                        +URLEncoder.encode("transctAmount","UTF-8")+"="+URLEncoder.encode(transctAmount,"UTF-8");
+
+                bufferedWriter.write(post_data);
+                bufferedWriter.flush();
+                bufferedWriter.close();
+                outputStream.close();
 
                 InputStream inputStream = httpURLConnection.getInputStream();
                 BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "iso-8859-1"));
@@ -74,7 +107,7 @@ public class AuthenticationHandler extends FingerprintManager.AuthenticationCall
                 String line;
                 result = "";
 
-                while ((line = bufferedReader.readLine()) != null) {
+                while((line = bufferedReader.readLine()) != null) {
                     result = result + line;
                 }
 
@@ -90,26 +123,32 @@ public class AuthenticationHandler extends FingerprintManager.AuthenticationCall
         }
 
         @Override
+        protected void onPreExecute() {
+
+        }
+
+        @Override
         protected void onPostExecute(String result) {
-            if (result.equals("Connection Success")) {
+            if (result.equals("Success")) {
                 fingerprintDialog.setTextView("Authentication Succeeded");
                 fingerprintDialog.setImageView(R.mipmap.fingerprint_success);
+
+                transcResult.setText("Payment Successful");
 
                 Handler handler = new Handler();
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
                         fingerprintDialog.dismiss();
+                        fingerprintDialog.setTextView("Payment Successful");
 
-                        Intent intent = new Intent(context, MainActivity.class);
-                        intent.putExtra("custID", custID);
-                        intent.putExtra("username", user);
-                        context.startActivity(intent);
                     }
                 }, 1000);
             } else {
-                fingerprintDialog.setTextView("Server Issue, Try Later");
+                fingerprintDialog.setTextView("Failed");
                 fingerprintDialog.setCancelable(true);
+
+                transcResult.setText("Payment Unsuccessful");
             }
         }
     }

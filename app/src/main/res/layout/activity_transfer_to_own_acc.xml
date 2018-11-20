@@ -7,20 +7,20 @@
     tools:context=".TransferToOwnAcc">
 
     <Spinner
-        android:id="@+id/spinner2"
+        android:id="@+id/receiverAccountList"
         android:layout_width="189dp"
         android:layout_height="33dp"
-        android:layout_marginEnd="16dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="28dp"
+        android:layout_marginEnd="16dp"
         android:spinnerMode="dialog"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/textView11"
-        app:layout_constraintTop_toBottomOf="@+id/spinner3" />
+        app:layout_constraintTop_toBottomOf="@+id/ownAccountList" />
 
     <Spinner
-        android:id="@+id/spinner3"
+        android:id="@+id/ownAccountList"
         android:layout_width="190dp"
         android:layout_height="33dp"
         android:layout_marginEnd="16dp"
@@ -142,11 +142,11 @@
         app:layout_constraintTop_toBottomOf="@+id/divider6" />
 
     <EditText
-        android:id="@+id/editText2"
+        android:id="@+id/paymentRefEdittext"
         android:layout_width="185dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
         android:layout_marginStart="8dp"
+        android:layout_marginEnd="16dp"
         android:ems="10"
         android:inputType="textPersonName"
         app:layout_constraintBaseline_toBaselineOf="@+id/textView12"
@@ -158,7 +158,7 @@
         android:id="@+id/textView14"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="88dp"
+        android:layout_marginStart="108dp"
         android:layout_marginTop="44dp"
         android:text="Amount:"
         android:textSize="30sp"
@@ -166,23 +166,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/divider9" />
 
-    <EditText
-        android:id="@+id/editText3"
-        android:layout_width="191dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:textAlignment="center"
-        android:textSize="30sp"
-        app:layout_constraintBaseline_toBaselineOf="@+id/textView14"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/textView14" />
-
     <Button
-        android:id="@+id/button4"
+        android:id="@+id/transferConfirmBtn"
         android:layout_width="97dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="44dp"
@@ -192,5 +177,18 @@
         app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView14" />
+
+    <EditText
+        android:id="@+id/amountEdittext"
+        android:layout_width="191dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:ems="10"
+        android:inputType="numberDecimal"
+        android:textSize="30sp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/textView14"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.189"
+        app:layout_constraintStart_toEndOf="@+id/textView14" />
 
 </android.support.constraint.ConstraintLayout>

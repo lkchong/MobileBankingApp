@@ -22,65 +22,72 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
 
-public class BillPaymentSummary extends AppCompatActivity {
+public class TransferSummaryOther extends AppCompatActivity {
 
     String custID;
-    String accountNO;
-    String accountName;
-    String billOrganization;
-    String billAccountNO;
-    String billAmount;
+    String receiverBank;
+    String sender;
+    String receiver;
+    String paymentReference;
+    String transferType;
+    String transferAmount;
     String transctID;
     String transctDateTime;
+    String senderAccNO;
+    String receiverAccNO;
 
-    TextView bankAccountTv;
-    TextView payeeOrganizationTv;
-    TextView billAccountNOTv;
-    TextView dateTimeTv;
-    TextView amountTv;
+    TextView senderTextview;
+    TextView receiverTextview;
+    TextView paymentRefTextview;
+    TextView dateTimeTextview;
+    TextView transferTypeTextview;
+    TextView amountTextview;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_bill_payment_summary);
+        setContentView(R.layout.activity_transfer_summary_other);
 
-        // Getting data from intent
         Intent intent = getIntent();
         custID = intent.getStringExtra("custID");
-        accountNO = intent.getStringExtra("accountNO");
-        accountName = intent.getStringExtra("accountName");
-        billOrganization = intent.getStringExtra("billOrganization");
-        billAccountNO = intent.getStringExtra("billAccountNO");
-        billAmount = intent.getStringExtra("billAmount");
+        receiverBank = intent.getStringExtra("receiverBank");
+        sender = intent.getStringExtra("sender");
+        receiver = intent.getStringExtra("receiver");
+        paymentReference = intent.getStringExtra("paymentReference");
+        transferType = intent.getStringExtra("transferType");
+        transferAmount = intent.getStringExtra("transferAmount");
         transctID = intent.getStringExtra("transctID");
         transctDateTime = intent.getStringExtra("transctDateTime");
-
-        // Initializing textview
-        bankAccountTv = findViewById(R.id.bankAccNOTextview);
-        payeeOrganizationTv = findViewById(R.id.payeeTextview);
-        billAccountNOTv = findViewById(R.id.billAccNOTextview);
-        dateTimeTv = findViewById(R.id.dateTimeTextview);
-        amountTv = findViewById(R.id.amountTextview);
-
-        // Set value to textview
-        bankAccountTv.setText(accountName + "\n" + accountNO);
-        payeeOrganizationTv.setText(billOrganization);
-        billAccountNOTv.setText(billAccountNO);
-        dateTimeTv.setText(transctDateTime);
-        amountTv.setText(billAmount);
+        senderAccNO = intent.getStringExtra("senderAccNO");
+        receiverAccNO = intent.getStringExtra("receiverAccNO");
 
 
-        // Confirm button listener
-        Button finalConfirm = findViewById(R.id.confirmBtn);
+        senderTextview = findViewById(R.id.senderTextview);
+        receiverTextview = findViewById(R.id.receiverTextview);
+        paymentRefTextview = findViewById(R.id.paymentRefTextview);
+        dateTimeTextview = findViewById(R.id.dateTimeTextview);
+        transferTypeTextview = findViewById(R.id.transferTypeTextview);
+        amountTextview = findViewById(R.id.amountTextview);
+
+        senderTextview.setText(sender + "\n" + senderAccNO);
+        receiverTextview.setText(receiver + "\n" + receiverAccNO);
+
+        paymentRefTextview.setText(paymentReference);
+        dateTimeTextview.setText(transctDateTime);
+        transferTypeTextview.setText(transferType);
+
+        amountTextview.setText("RM " + transferAmount);
+
+        Button finalConfirm = findViewById(R.id.finalConfirmBtn);
         finalConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                BillTaskFinal transferTaskFinal = new BillTaskFinal();
+                TransferTaskFinal transferTaskFinal = new TransferTaskFinal();
                 transferTaskFinal.execute();
             }
         });
 
-        // Cancel button listener
         Button cancelBtn = findViewById(R.id.cancelBtn);
         cancelBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,16 +98,14 @@ public class BillPaymentSummary extends AppCompatActivity {
         });
     }
 
-
-    // Async Task for Billing final
-    public class BillTaskFinal extends AsyncTask<String, Void, String> {
+    public class TransferTaskFinal extends AsyncTask<String, Void, String> {
         String result;
 
         @Override
         protected String doInBackground(String... params) {
 
             String host = getString(R.string.ip_address);    // IP use 10.0.2.2 for testing using emulator
-            String transferOwnFinal = host + "billing_final.php";
+            String transferOwnFinal = host + "transfer_other_final.php";
 
             try {
                 URL url = new URL(transferOwnFinal);
@@ -112,16 +117,16 @@ public class BillPaymentSummary extends AppCompatActivity {
                 OutputStream outputStream = httpURLConnection.getOutputStream();
                 BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
 
-                String post_data = URLEncoder.encode("accountNO","UTF-8")+"="+URLEncoder.encode(accountNO,"UTF-8")+"&"
-                        +URLEncoder.encode("billOrganization","UTF-8")+"="+URLEncoder.encode(billOrganization,"UTF-8")+"&"
-                        +URLEncoder.encode("billAmount","UTF-8")+"="+URLEncoder.encode(billAmount,"UTF-8")+"&"
+                String post_data = URLEncoder.encode("senderAccNO","UTF-8")+"="+URLEncoder.encode(senderAccNO,"UTF-8")+"&"
+                        +URLEncoder.encode("receiverAccNO","UTF-8")+"="+URLEncoder.encode(receiverAccNO,"UTF-8")+"&"
+                        +URLEncoder.encode("receiverBank","UTF-8")+"="+URLEncoder.encode(receiverBank,"UTF-8")+"&"
+                        +URLEncoder.encode("transferAmount","UTF-8")+"="+URLEncoder.encode(transferAmount,"UTF-8")+"&"
                         +URLEncoder.encode("transctID","UTF-8")+"="+URLEncoder.encode(transctID,"UTF-8");
 
                 bufferedWriter.write(post_data);
                 bufferedWriter.flush();
                 bufferedWriter.close();
                 outputStream.close();
-
 
                 InputStream inputStream = httpURLConnection.getInputStream();
                 BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "iso-8859-1"));
@@ -148,13 +153,13 @@ public class BillPaymentSummary extends AppCompatActivity {
         protected void onPostExecute(String result) {
             if(result.equals("Success")) {
                 AlertDialog.Builder alertDialogBuilder;
-                alertDialogBuilder = new AlertDialog.Builder(BillPaymentSummary.this);
+                alertDialogBuilder = new AlertDialog.Builder(TransferSummaryOther.this);
                 alertDialogBuilder.setCancelable(true).setTitle("Status");
                 alertDialogBuilder.setMessage("Payment Successful");
                 alertDialogBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Intent intent = new Intent(BillPaymentSummary.this, MainActivity.class);
+                        Intent intent = new Intent(TransferSummaryOther.this, MainActivity.class);
                         startActivity(intent);
                         finish();
                     }
@@ -162,13 +167,13 @@ public class BillPaymentSummary extends AppCompatActivity {
                 alertDialogBuilder.create().show();
             } else {
                 AlertDialog.Builder alertDialogBuilder;
-                alertDialogBuilder = new AlertDialog.Builder(BillPaymentSummary.this);
+                alertDialogBuilder = new AlertDialog.Builder(TransferSummaryOther.this);
                 alertDialogBuilder.setCancelable(true).setTitle("Status");
                 alertDialogBuilder.setMessage("Payment Unsuccessful");
                 alertDialogBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Intent intent = new Intent(BillPaymentSummary.this, MainActivity.class);
+                        Intent intent = new Intent(TransferSummaryOther.this, MainActivity.class);
                         startActivity(intent);
                         finish();
                     }
@@ -177,7 +182,6 @@ public class BillPaymentSummary extends AppCompatActivity {
             }
         }
     }
-
 
     public class TransferCancel extends AsyncTask<String, Void, String> {
         String result;
@@ -230,14 +234,12 @@ public class BillPaymentSummary extends AppCompatActivity {
         protected void onPostExecute(String result) {
             if(result.equals("Success")) {
                 AlertDialog.Builder alertDialogBuilder;
-                alertDialogBuilder = new AlertDialog.Builder(BillPaymentSummary.this);
+                alertDialogBuilder = new AlertDialog.Builder(TransferSummaryOther.this);
                 alertDialogBuilder.setCancelable(true).setTitle("Status");
                 alertDialogBuilder.setMessage("Transfer Canceled");
                 alertDialogBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Intent intent = new Intent(BillPaymentSummary.this, MainActivity.class);
-                        startActivity(intent);
                         finish();
                     }
                 });
@@ -245,4 +247,12 @@ public class BillPaymentSummary extends AppCompatActivity {
             }
         }
     }
-}
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        moveTaskToBack(true);
+        TransferCancel transferCancel = new TransferCancel();
+        transferCancel.execute();
+    }
+ }

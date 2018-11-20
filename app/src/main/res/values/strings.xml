@@ -10,6 +10,20 @@
         <item>Mobile App</item>
         <item>Banking</item>
     </string-array>
+
+    <string-array name="transfer_type">
+        <item>GIRO</item>
+        <item>Instant Transfer</item>
+    </string-array>
+
+    <string-array name="bank_list">
+        <item>Maybank</item>
+        <item>CIMB Bank</item>
+        <item>Public Bank</item>
+        <item>AMBank</item>
+        <item>ABC Bank</item>
+    </string-array>
+
     <string name="notification_channel_id">mobilebankingapp</string>
     <string name="notification_channel_name">AuthNotification</string>
 </resources>

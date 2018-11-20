@@ -7,28 +7,27 @@
     tools:context=".BillPaymentSummary">
 
     <Button
-        android:id="@+id/button10"
-        android:layout_width="240dp"
+        android:id="@+id/cancelBtn"
+        android:layout_width="214dp"
         android:layout_height="80dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
         android:background="@android:color/holo_blue_light"
         android:text="Cancel"
         android:textColor="@android:color/white"
         android:textSize="18sp"
-        app:layout_constraintBaseline_toBaselineOf="@+id/button11"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/button11" />
+        app:layout_constraintStart_toEndOf="@+id/confirmBtn" />
 
     <Button
-        android:id="@+id/button11"
-        android:layout_width="240dp"
+        android:id="@+id/confirmBtn"
+        android:layout_width="207dp"
         android:layout_height="80dp"
         android:background="@android:color/holo_blue_light"
         android:text="Confirm"
         android:textColor="@android:color/white"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/cancelBtn"
         app:layout_constraintStart_toStartOf="parent" />
 
     <View
@@ -73,8 +72,8 @@
         android:id="@+id/textView6"
         android:layout_width="168dp"
         android:layout_height="54dp"
-        android:layout_marginEnd="124dp"
         android:layout_marginTop="36dp"
+        android:layout_marginEnd="92dp"
         android:text="ABC Bank"
         android:textSize="36sp"
         android:textStyle="bold"
@@ -106,11 +105,11 @@
         app:layout_constraintTop_toBottomOf="@+id/divider16" />
 
     <TextView
-        android:id="@+id/textView48"
+        android:id="@+id/amountTextview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
         android:textSize="30sp"
         app:layout_constraintBaseline_toBaselineOf="@+id/textView43"
         app:layout_constraintEnd_toEndOf="parent"
@@ -130,11 +129,11 @@
         app:layout_constraintTop_toBottomOf="@+id/textView41" />
 
     <TextView
-        android:id="@+id/textView42"
+        android:id="@+id/payeeTextview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
         android:textSize="24sp"
         app:layout_constraintBaseline_toBaselineOf="@+id/textView41"
         app:layout_constraintEnd_toEndOf="parent"
@@ -142,11 +141,11 @@
         app:layout_constraintStart_toEndOf="@+id/textView41" />
 
     <TextView
-        android:id="@+id/textView46"
+        android:id="@+id/billAccNOTextview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
         android:textSize="24sp"
         app:layout_constraintBaseline_toBaselineOf="@+id/textView47"
         app:layout_constraintEnd_toEndOf="parent"
@@ -154,12 +153,12 @@
         app:layout_constraintStart_toEndOf="@+id/textView47" />
 
     <TextView
-        android:id="@+id/textView45"
+        android:id="@+id/bankAccNOTextview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:textSize="24sp"
+        android:layout_marginEnd="8dp"
+        android:textSize="12sp"
         app:layout_constraintBaseline_toBaselineOf="@+id/textView44"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -184,8 +183,9 @@
         android:layout_marginTop="28dp"
         android:background="@android:color/background_dark"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.39"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView47" />
+        app:layout_constraintTop_toBottomOf="@+id/textView17" />
 
     <View
         android:id="@+id/divider18"
@@ -196,6 +196,32 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView44" />
+
+    <TextView
+        android:id="@+id/textView17"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="80dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="228dp"
+        android:text="DateTime:"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView47" />
+
+    <TextView
+        android:id="@+id/dateTimeTextview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:textSize="22sp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/textView17"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/textView17" />
 
 
 </android.support.constraint.ConstraintLayout>
