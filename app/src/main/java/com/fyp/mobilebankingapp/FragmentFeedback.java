@@ -69,7 +69,7 @@ public class FragmentFeedback extends Fragment {
                 String selected = feedbackSpinner.getSelectedItem().toString();
 
                 switch (selected) {
-                    case "General":
+                    case "General Experience":
                         ratingBar.setVisibility(View.VISIBLE);
                         break;
                     default:
@@ -100,7 +100,7 @@ public class FragmentFeedback extends Fragment {
         custID = getActivity().getIntent().getStringExtra("custID");
         feedbackCategory = feedbackSpinner.getSelectedItem().toString();
 
-        if(feedbackCategory.equals("General")) {
+        if(feedbackCategory.equals("General Experience")) {
             feedbackRating = Float.toString(ratingBar.getRating());
             feedbackDetails = ((EditText)view.findViewById(R.id.feedbackDetails))
                     .getText().toString().trim();
@@ -208,11 +208,6 @@ public class FragmentFeedback extends Fragment {
                 alertDialogBuilder.setMessage("Feedback Submission Failed")
                                     .create().show();
             }
-        }
-
-        @Override
-        protected void onProgressUpdate(Void... values) {
-            super.onProgressUpdate(values);
         }
     }
 }

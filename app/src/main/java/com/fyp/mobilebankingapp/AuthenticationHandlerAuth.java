@@ -123,24 +123,19 @@ public class AuthenticationHandlerAuth extends FingerprintManager.Authentication
         }
 
         @Override
-        protected void onPreExecute() {
-
-        }
-
-        @Override
         protected void onPostExecute(String result) {
             if (result.equals("Success")) {
                 fingerprintDialog.setTextView("Authentication Succeeded");
                 fingerprintDialog.setImageView(R.mipmap.fingerprint_success);
 
-                transcResult.setText("Payment Successful");
+                transcResult.setText("Transaction Successful");
 
                 Handler handler = new Handler();
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
                         fingerprintDialog.dismiss();
-                        fingerprintDialog.setTextView("Payment Successful");
+                        fingerprintDialog.setTextView("Transaction Successful");
 
                     }
                 }, 1000);
@@ -148,7 +143,7 @@ public class AuthenticationHandlerAuth extends FingerprintManager.Authentication
                 fingerprintDialog.setTextView("Failed");
                 fingerprintDialog.setCancelable(true);
 
-                transcResult.setText("Payment Unsuccessful");
+                transcResult.setText("Transaction Unsuccessful");
             }
         }
     }

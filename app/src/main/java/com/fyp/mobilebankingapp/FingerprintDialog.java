@@ -12,7 +12,6 @@ import android.widget.TextView;
 public class FingerprintDialog extends AppCompatDialogFragment {
     private TextView textView;
     private ImageView imageView;
-
     private TextView welcomeView;
 
 

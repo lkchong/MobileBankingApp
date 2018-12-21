@@ -13,6 +13,7 @@
         android:roundIcon="@drawable/app_icon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
         <activity
             android:name=".LoginActivity">
             <intent-filter>
@@ -22,39 +23,26 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".AccountDetailsActivity" />
 
-        <activity
-            android:name=".TransferToOwnAcc" />
+        <activity android:name=".AccountDetailsActivity" />
 
-        <activity
-            android:name=".TransferToOtherAcc" />
+        <activity android:name=".TransferToOwnAcc" />
 
-        <activity
-            android:name=".NewTransferPayee" />
+        <activity android:name=".TransferToOtherAcc" />
 
-        <activity
-            android:name=".TransferSummaryOwn" />
+        <activity android:name=".NewTransferPayee" />
 
-        <activity
-            android:name=".TransferSummaryOther"
-            android:launchMode="singleTop" />
+        <activity android:name=".TransferSummaryOwn" />
 
-        <activity
-            android:name=".NewBillPaymentPayee" />
+        <activity android:name=".TransferSummaryOther" />
 
-        <activity
-            android:name=".BillPaymentSummary" />
+        <activity android:name=".NewBillPaymentPayee" />
 
-        <activity
-            android:name=".ReportPage" />
+        <activity android:name=".BillPaymentSummary" />
 
-        <activity
-            android:name=".MainActivity" />
+        <activity android:name=".MainActivity" />
 
-        <activity
-            android:name=".BiometricAuthorization" />
+        <activity android:name=".BiometricAuthorization" />
 
         <service android:name=".Service.FirebaseInstanceService">
             <intent-filter>
@@ -65,11 +53,10 @@
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"
             android:resource="@drawable/ic_notification" />
+
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_channel_id"
             android:resource="@string/notification_channel_id" />
 
-
     </application>
-
 </manifest>

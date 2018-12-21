@@ -6,9 +6,22 @@
     android:layout_height="match_parent"
     tools:context=".TransferToOwnAcc">
 
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="24dp"
+        android:contentDescription="bankicon"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/bank_logo" />
+
     <Spinner
         android:id="@+id/receiverAccountList"
-        android:layout_width="189dp"
+        android:layout_width="212dp"
         android:layout_height="33dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="28dp"
@@ -21,11 +34,11 @@
 
     <Spinner
         android:id="@+id/ownAccountList"
-        android:layout_width="190dp"
+        android:layout_width="212dp"
         android:layout_height="33dp"
-        android:layout_marginEnd="16dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="220dp"
+        android:layout_marginTop="200dp"
+        android:layout_marginEnd="16dp"
         android:spinnerMode="dialog"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -36,8 +49,8 @@
         android:id="@+id/textView11"
         android:layout_width="106dp"
         android:layout_height="37dp"
-        android:layout_marginStart="112dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="20dp"
         android:text="Receiver:"
         android:textAlignment="viewEnd"
         android:textSize="24sp"
@@ -49,8 +62,8 @@
         android:id="@+id/textView10"
         android:layout_width="106dp"
         android:layout_height="37dp"
-        android:layout_marginStart="112dp"
-        android:layout_marginTop="220dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="200dp"
         android:text="Sender:"
         android:textAlignment="viewEnd"
         android:textSize="24sp"
@@ -82,9 +95,10 @@
         android:id="@+id/divider7"
         android:layout_width="370dp"
         android:layout_height="2dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="8dp"
         android:background="@android:color/background_dark"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.609"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView8" />
 
@@ -92,40 +106,14 @@
         android:id="@+id/textView8"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="140dp"
+        android:layout_marginTop="128dp"
+        android:layout_marginEnd="8dp"
         android:text="Select Bank Account"
         android:textSize="30sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="61dp"
-        android:layout_height="49dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="36dp"
-        android:contentDescription="bankicon"
-        app:layout_constraintEnd_toStartOf="@+id/textView6"
-        app:layout_constraintHorizontal_bias="0.954"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/bank_icon" />
-
-    <TextView
-        android:id="@+id/textView6"
-        android:layout_width="168dp"
-        android:layout_height="54dp"
-        android:layout_marginEnd="124dp"
-        android:layout_marginTop="36dp"
-        android:text="ABC Bank"
-        android:textSize="36sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -143,7 +131,7 @@
 
     <EditText
         android:id="@+id/paymentRefEdittext"
-        android:layout_width="185dp"
+        android:layout_width="169dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="16dp"
@@ -158,8 +146,8 @@
         android:id="@+id/textView14"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="108dp"
-        android:layout_marginTop="44dp"
+        android:layout_marginStart="56dp"
+        android:layout_marginTop="40dp"
         android:text="Amount:"
         android:textSize="30sp"
         android:textStyle="bold"
@@ -185,10 +173,11 @@
         android:layout_marginEnd="8dp"
         android:ems="10"
         android:inputType="numberDecimal"
+        android:textAlignment="center"
         android:textSize="30sp"
         app:layout_constraintBaseline_toBaselineOf="@+id/textView14"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.189"
+        app:layout_constraintHorizontal_bias="0.066"
         app:layout_constraintStart_toEndOf="@+id/textView14" />
 
 </android.support.constraint.ConstraintLayout>

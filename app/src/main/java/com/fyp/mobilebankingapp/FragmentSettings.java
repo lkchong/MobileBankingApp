@@ -21,6 +21,12 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
 
+import java.io.BufferedWriter;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -35,9 +41,6 @@ public class FragmentSettings extends Fragment {
     private boolean loginSwitchState;
     private boolean authSwitchState;
 
-    public FragmentSettings() {
-        // Required empty public constructor
-    }
 
     @Nullable
     @Override
@@ -60,7 +63,7 @@ public class FragmentSettings extends Fragment {
             public void onClick(View v) {
                 saveAuthSetting();
 
-                if(bioAuthSwitch.isChecked()) {
+                if(bioAuthSwitch.isChecked()) { //Call async task to add token to database
                     FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(new OnSuccessListener<InstanceIdResult>() {
                         @Override
                         public void onSuccess(InstanceIdResult instanceIdResult) {
@@ -76,8 +79,15 @@ public class FragmentSettings extends Fragment {
                         }
                     });
                 }
+                else if(!bioAuthSwitch.isChecked()){ // Call async task to remove token from database
+                    SharedPreferences fcmPrefs = getActivity().getSharedPreferences("fcmPrefs", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = fcmPrefs.edit();
+                    editor.putString("fcmToken", "");
+                    editor.commit();
 
-                //Call async task to add token entry if switch is on
+                    MainBackground mainBackground = new MainBackground();
+                    mainBackground.execute();
+                }
             }
         });
 
@@ -153,10 +163,6 @@ public class FragmentSettings extends Fragment {
     public class MainBackground extends AsyncTask<String, Void, String> {
 
         @Override
-        protected void onPreExecute() {
-        }
-
-        @Override
         protected String doInBackground(String... params) {
 
             String host = getString(R.string.ip_address);    // IP use 10.0.2.2 for testing using emulator
@@ -199,15 +205,6 @@ public class FragmentSettings extends Fragment {
             }
 
             return null;
-        }
-
-        @Override
-        protected void onPostExecute(String result) {
-        }
-
-        @Override
-        protected void onProgressUpdate(Void... values) {
-            super.onProgressUpdate(values);
         }
     }
 }

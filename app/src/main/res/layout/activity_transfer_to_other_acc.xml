@@ -6,6 +6,20 @@
     android:layout_height="match_parent"
     tools:context=".TransferToOtherAcc">
 
+    <EditText
+        android:id="@+id/amountEdittext"
+        android:layout_width="191dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:ems="10"
+        android:inputType="numberDecimal"
+        android:textAlignment="center"
+        android:textSize="30sp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/textView14"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.189"
+        app:layout_constraintStart_toEndOf="@+id/textView14" />
+
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="0dp"
@@ -21,7 +35,7 @@
 
     <Spinner
         android:id="@+id/receiverAccountList"
-        android:layout_width="150dp"
+        android:layout_width="197dp"
         android:layout_height="33dp"
         android:layout_marginStart="5dp"
         android:layout_marginTop="24dp"
@@ -34,7 +48,7 @@
 
     <Spinner
         android:id="@+id/ownAccountList"
-        android:layout_width="150dp"
+        android:layout_width="193dp"
         android:layout_height="33dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="204dp"
@@ -49,7 +63,7 @@
         android:id="@+id/textView11"
         android:layout_width="106dp"
         android:layout_height="37dp"
-        android:layout_marginStart="88dp"
+        android:layout_marginStart="28dp"
         android:layout_marginTop="20dp"
         android:text="Receiver:"
         android:textAlignment="viewEnd"
@@ -62,8 +76,8 @@
         android:id="@+id/textView10"
         android:layout_width="106dp"
         android:layout_height="37dp"
-        android:layout_marginStart="92dp"
-        android:layout_marginTop="200dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="204dp"
         android:text="Sender:"
         android:textAlignment="viewEnd"
         android:textSize="24sp"
@@ -85,9 +99,10 @@
         android:id="@+id/divider9"
         android:layout_width="370dp"
         android:layout_height="2dp"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="28dp"
         android:background="@android:color/background_dark"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.512"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/transferTypeTextview" />
 
@@ -119,7 +134,7 @@
         android:id="@+id/textView12"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="36dp"
+        android:layout_marginStart="28dp"
         android:layout_marginTop="32dp"
         android:text="Payment Reference:"
         android:textAlignment="viewEnd"
@@ -130,7 +145,7 @@
 
     <EditText
         android:id="@+id/paymentRefEdittext"
-        android:layout_width="185dp"
+        android:layout_width="180dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="16dp"
@@ -145,28 +160,13 @@
         android:id="@+id/textView14"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="88dp"
-        android:layout_marginTop="44dp"
+        android:layout_marginStart="56dp"
+        android:layout_marginTop="32dp"
         android:text="Amount:"
         android:textSize="30sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/divider9" />
-
-    <EditText
-        android:id="@+id/amountEdittext"
-        android:layout_width="191dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:textAlignment="center"
-        android:textSize="30sp"
-        app:layout_constraintBaseline_toBaselineOf="@+id/textView14"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/textView14" />
 
     <Button
         android:id="@+id/transferConfirmBtn"
@@ -190,16 +190,15 @@
         android:textAlignment="viewEnd"
         android:textColor="@android:color/black"
         android:textSize="18sp"
-        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView12" />
 
     <Spinner
         android:id="@+id/transferTypeList"
-        android:layout_width="190dp"
-        android:layout_height="33dp"
+        android:layout_width="131dp"
+        android:layout_height="28dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="12dp"
         android:layout_marginEnd="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"

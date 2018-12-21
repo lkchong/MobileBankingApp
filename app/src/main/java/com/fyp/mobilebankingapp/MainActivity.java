@@ -22,8 +22,6 @@ public class MainActivity extends AppCompatActivity {
     private TabLayout tabLayout;
     private ViewPager viewPager;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,15 +51,9 @@ public class MainActivity extends AppCompatActivity {
         tabLayout.getTabAt(2).setIcon(R.drawable.baseline_list_alt_white_24dp);
         tabLayout.getTabAt(3).setIcon(R.drawable.baseline_feedback_white_24dp);
         tabLayout.getTabAt(4).setIcon(R.drawable.baseline_settings_white_24dp);
-
-
     }
 
     public class MainBackground extends AsyncTask<String, Void, String> {
-
-        @Override
-        protected void onPreExecute() {
-        }
 
         @Override
         protected String doInBackground(String... params) {
@@ -102,15 +94,6 @@ public class MainActivity extends AppCompatActivity {
             }
 
             return null;
-        }
-
-        @Override
-        protected void onPostExecute(String result) {
-        }
-
-        @Override
-        protected void onProgressUpdate(Void... values) {
-            super.onProgressUpdate(values);
         }
     }
 }

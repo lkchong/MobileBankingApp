@@ -36,8 +36,6 @@ public class FirebaseInstanceService extends FirebaseMessagingService {
         fcmeditor.putString("fcmToken", token);
         fcmeditor.commit();
 
-
-
         String host = getString(R.string.ip_address);    // IP use 10.0.2.2 for testing using emulator
         String insertToken_URL = host + "fcm/insert_token.php";
 
@@ -82,44 +80,8 @@ public class FirebaseInstanceService extends FirebaseMessagingService {
     public void onMessageReceived(RemoteMessage remoteMessage) {
         super.onMessageReceived(remoteMessage);
 
-        /**
-        if(remoteMessage.getData().isEmpty())
-            showNotification(remoteMessage.getNotification().getTitle(), remoteMessage.getNotification().getBody());
-        else
-            showNotification(remoteMessage.getData());
-         **/
         showNotification(remoteMessage.getData());
     }
-
-    /**
-    private void showNotification(String title, String body) {
-
-        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(), 0, intent, PendingIntent.FLAG_ONE_SHOT);
-
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            NotificationChannel notificationChannel = new NotificationChannel(getString(R.string.notification_channel_id),
-                    getString(R.string.notification_channel_name), NotificationManager.IMPORTANCE_HIGH);
-            notificationChannel.setDescription("MyNotification");
-
-            NotificationManager notificationManager = getSystemService(NotificationManager.class);
-            notificationManager.createNotificationChannel(notificationChannel);
-        }
-
-        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(getApplicationContext(), getString(R.string.notification_channel_id))
-                .setSmallIcon(R.drawable.ic_notification)
-                .setContentTitle(title)
-                .setContentText(body)
-                .setPriority(NotificationCompat.PRIORITY_HIGH)
-                .setCategory(NotificationCompat.CATEGORY_MESSAGE)
-                .setAutoCancel(true)
-                .setContentIntent(pendingIntent);
-
-        NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(getApplicationContext());
-        notificationManagerCompat.notify(1, notificationBuilder.build());
-    }
-     **/
 
     private void showNotification(Map<String,String> data) {
 

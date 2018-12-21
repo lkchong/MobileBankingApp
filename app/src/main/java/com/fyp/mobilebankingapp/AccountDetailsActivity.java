@@ -30,7 +30,6 @@ public class AccountDetailsActivity extends AppCompatActivity {
         final ListView transactionListView = (ListView) findViewById(R.id.transactionList);
         final ArrayList<TransactionItem> transactionItemList = new ArrayList<>();
 
-
         new BackgroundTask(this) {
             @Override
             protected void onPostExecute(String result) {
@@ -67,6 +66,5 @@ public class AccountDetailsActivity extends AppCompatActivity {
                 }
             }
         }.execute("accountDetails", custID, accountName);
-
     }
 }

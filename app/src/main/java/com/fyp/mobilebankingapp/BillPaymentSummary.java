@@ -40,6 +40,14 @@ public class BillPaymentSummary extends AppCompatActivity {
     TextView amountTv;
 
     @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        moveTaskToBack(true);
+        TransferCancel transferCancel = new TransferCancel();
+        transferCancel.execute();
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bill_payment_summary);
@@ -154,8 +162,6 @@ public class BillPaymentSummary extends AppCompatActivity {
                 alertDialogBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Intent intent = new Intent(BillPaymentSummary.this, MainActivity.class);
-                        startActivity(intent);
                         finish();
                     }
                 });
@@ -168,8 +174,6 @@ public class BillPaymentSummary extends AppCompatActivity {
                 alertDialogBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Intent intent = new Intent(BillPaymentSummary.this, MainActivity.class);
-                        startActivity(intent);
                         finish();
                     }
                 });
@@ -236,8 +240,6 @@ public class BillPaymentSummary extends AppCompatActivity {
                 alertDialogBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Intent intent = new Intent(BillPaymentSummary.this, MainActivity.class);
-                        startActivity(intent);
                         finish();
                     }
                 });

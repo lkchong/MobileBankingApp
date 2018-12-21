@@ -48,16 +48,8 @@ public class FragmentBillPayment extends Fragment {
     String billAmount;
     String accountNO;
     String accountName;
-    String paymentReference;
-    String transferAmount;
     String transctID;
     String transctDateTime;
-    String senderAccNO;
-    String receiverAccNO;
-
-
-    public FragmentBillPayment() {
-    }
 
     @Override
     public void onResume() {
@@ -183,8 +175,6 @@ public class FragmentBillPayment extends Fragment {
             }
         });
 
-
-
         return view;
     }
 
@@ -243,7 +233,6 @@ public class FragmentBillPayment extends Fragment {
                     android.R.layout.simple_spinner_dropdown_item);
 
             payeeAdapter.setDropDownViewResource(R.layout.spinner_textview);
-
             payeeSpinner.setAdapter(payeeAdapter);
 
             // Parsing JSON result

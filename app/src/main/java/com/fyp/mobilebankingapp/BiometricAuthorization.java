@@ -76,7 +76,7 @@ public class BiometricAuthorization extends AppCompatActivity {
         fingerprintDialog.setArguments(dialogBundle);
         fingerprintDialog.show(getSupportFragmentManager(), "fingerprint dialog");
 
-
+        // Creating keyguard manager object
         KeyguardManager keyguardManager = (KeyguardManager) getSystemService(KEYGUARD_SERVICE);
         FingerprintManager fingerprintManager = (FingerprintManager) getSystemService(FINGERPRINT_SERVICE);
 

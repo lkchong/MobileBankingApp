@@ -8,29 +8,16 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="61dp"
-        android:layout_height="49dp"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="24dp"
         android:contentDescription="bankicon"
-        app:layout_constraintEnd_toStartOf="@+id/textView6"
-        app:layout_constraintHorizontal_bias="0.954"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/bank_icon" />
-
-    <TextView
-        android:id="@+id/textView6"
-        android:layout_width="168dp"
-        android:layout_height="54dp"
-        android:layout_marginEnd="124dp"
-        android:layout_marginTop="36dp"
-        android:text="ABC Bank"
-        android:textSize="36sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:srcCompat="@drawable/bank_logo" />
 
     <TextView
         android:id="@+id/textView18"
@@ -60,12 +47,13 @@
         android:layout_width="180dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="24dp"
         android:layout_marginEnd="8dp"
         android:textSize="18sp"
-        app:layout_constraintBaseline_toBaselineOf="@+id/textView23"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/textView23" />
+        app:layout_constraintHorizontal_bias="0.027"
+        app:layout_constraintStart_toEndOf="@+id/textView23"
+        app:layout_constraintTop_toBottomOf="@+id/textView28" />
 
     <TextView
         android:id="@+id/textView33"
@@ -97,19 +85,20 @@
         android:layout_width="180dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="28dp"
         android:layout_marginEnd="8dp"
         android:textSize="18sp"
-        app:layout_constraintBaseline_toBaselineOf="@+id/textView28"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/textView28" />
+        app:layout_constraintStart_toEndOf="@+id/textView28"
+        app:layout_constraintTop_toBottomOf="@+id/divider4" />
 
     <TextView
         android:id="@+id/textView23"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="144dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginStart="112dp"
+        android:layout_marginTop="36dp"
         android:text="TO:"
         android:textSize="18sp"
         android:textStyle="bold"
@@ -120,7 +109,7 @@
         android:id="@+id/textView28"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="120dp"
+        android:layout_marginStart="88dp"
         android:layout_marginTop="40dp"
         android:text="FROM:"
         android:textSize="18sp"

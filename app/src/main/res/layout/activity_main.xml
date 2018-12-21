@@ -45,7 +45,7 @@
             android:background="#404040"
             app:tabIndicatorColor="@android:color/holo_blue_dark"
             app:tabSelectedTextColor="@android:color/white"
-            app:tabTextAppearance="@style/TextAppearance.AppCompat"
+            app:tabTextAppearance="@style/MineCustomTabText"
             app:tabTextColor="@android:color/darker_gray" />
     </android.support.design.widget.AppBarLayout>
 

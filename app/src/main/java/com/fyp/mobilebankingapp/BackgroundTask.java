@@ -190,10 +190,4 @@ public class BackgroundTask extends AsyncTask<String, Void, String> {
                 context.startActivity(intent);
             }
     }
-
-    @Override
-    protected void onProgressUpdate(Void... values) {
-        super.onProgressUpdate(values);
-    }
-
 }

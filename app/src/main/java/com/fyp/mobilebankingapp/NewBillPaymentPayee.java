@@ -31,7 +31,6 @@ public class NewBillPaymentPayee extends AppCompatActivity {
     String custID;
     Spinner payeeSpinner;
     EditText billAccountNOTv;
-
     String billPayeeName;
     String billAccountNO;
 
@@ -137,7 +136,6 @@ public class NewBillPaymentPayee extends AppCompatActivity {
             }
         }
     }
-
 
     // AsyncTask Class for adding new payee
     public class AddNewBillPayee extends AsyncTask<String, Void, String> {

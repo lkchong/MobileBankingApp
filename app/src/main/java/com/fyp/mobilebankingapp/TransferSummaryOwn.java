@@ -2,7 +2,6 @@ package com.fyp.mobilebankingapp;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -33,6 +32,14 @@ public class TransferSummaryOwn extends AppCompatActivity {
     String transctDateTime;
     String senderAccNO;
     String receiverAccNO;
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        moveTaskToBack(true);
+        TransferCancel transferCancel = new TransferCancel();
+        transferCancel.execute();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -141,8 +148,7 @@ public class TransferSummaryOwn extends AppCompatActivity {
                 alertDialogBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Intent intent = new Intent(TransferSummaryOwn.this, MainActivity.class);
-                        startActivity(intent);
+                        finish();
                     }
                 });
                 alertDialogBuilder.create().show();
@@ -154,8 +160,7 @@ public class TransferSummaryOwn extends AppCompatActivity {
                 alertDialogBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Intent intent = new Intent(TransferSummaryOwn.this, MainActivity.class);
-                        startActivity(intent);
+                        finish();
                     }
                 });
                 alertDialogBuilder.create().show();
@@ -213,19 +218,13 @@ public class TransferSummaryOwn extends AppCompatActivity {
         @Override
         protected void onPostExecute(String result) {
             if(result.equals("Success")) {
-                Intent intent = new Intent(TransferSummaryOwn.this, MainActivity.class);
-                startActivity(intent);
-                finish();
-            } else {
                 AlertDialog.Builder alertDialogBuilder;
                 alertDialogBuilder = new AlertDialog.Builder(TransferSummaryOwn.this);
                 alertDialogBuilder.setCancelable(true).setTitle("Status");
-                alertDialogBuilder.setMessage("Payment Unsuccessful");
+                alertDialogBuilder.setMessage("Transfer Canceled");
                 alertDialogBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Intent intent = new Intent(TransferSummaryOwn.this, MainActivity.class);
-                        startActivity(intent);
                         finish();
                     }
                 });

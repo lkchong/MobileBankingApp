@@ -4,11 +4,11 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="ip_address">http://middleearth897.ddns.net/</string>
+    <string name="ip_address">http://192.168.1.5/</string>
     <string-array name="feedback_category">
-        <item>General</item>
-        <item>Mobile App</item>
-        <item>Banking</item>
+        <item>General Experience</item>
+        <item>Mobile App Issues</item>
+        <item>Banking Issues</item>
     </string-array>
 
     <string-array name="transfer_type">

@@ -113,9 +113,6 @@ public class TransferToOtherAcc extends AppCompatActivity {
                         transferTypeSpinner.setVisibility(View.VISIBLE);
                         break;
                 }
-
-                //CheckPayeeBank checkPayeeBank = new CheckPayeeBank();
-                //checkPayeeBank.execute();
             }
 
             @Override
@@ -261,7 +258,6 @@ public class TransferToOtherAcc extends AppCompatActivity {
                     transctID = jsonTransactionResults.getString("transctID");
                     transctDateTime = jsonTransactionResults.getString("transctDateTime");
                     senderAccNO = jsonTransactionResults.getString("senderAccNO");
-                    //receiverAccNO = jsonTransactionResults.getString("receiverAccNO");
 
                     Intent intent = new Intent(TransferToOtherAcc.this, TransferSummaryOther.class);
                     intent.putExtra("custID", custID);

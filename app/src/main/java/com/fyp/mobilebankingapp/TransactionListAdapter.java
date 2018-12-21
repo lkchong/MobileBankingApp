@@ -30,8 +30,6 @@ public class TransactionListAdapter extends ArrayAdapter<TransactionItem>{
         String transactionReference = getItem(position).getTransactionReference();
         String transactionAmount = getItem(position).getTransactionAmount();
 
-        //TransactionItem transactionItem = new TransactionItem(transactionDatetime,transactionReference, transactionAmount);
-
         LayoutInflater inflater = LayoutInflater.from(context);
         convertView = inflater.inflate(resource, parent, false);
 
